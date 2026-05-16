@@ -26,4 +26,12 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/login', function () {
     return view('login');
+    
 });
+   use App\Http\Controllers\JadwalController;
+
+Route::get('/jadwal', [JadwalController::class, 'index'])
+    ->name('jadwal.index');
+
+
+ 

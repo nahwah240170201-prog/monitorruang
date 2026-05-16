@@ -47,7 +47,9 @@
                 class="px-5 h-[42px] flex items-center rounded-lg text-[15px] font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
                 Home
             </a>
-
+            <a href="{{ route('jadwal.index') }}">
+                Jadwal
+            </a>
             <a href="#"
                 class="px-5 h-[42px] flex items-center rounded-lg text-[15px] font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
                 Tentang
