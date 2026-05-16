@@ -13,7 +13,9 @@ Route::get('/', function () {
         'jam' => now()->format('H:i'),
         'jadwal' => $jadwal,
     ]);
-});
+
+})->middleware('auth');
+
 Route::get('/login', function () {
     return view('login');
 });
@@ -23,7 +25,3 @@ Route::get('/register', function () {
 });
 
 Route::post('/register', [AuthController::class, 'register']);
-
-Route::get('/login', function () {
-    return view('login');
-});
