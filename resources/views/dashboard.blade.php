@@ -267,93 +267,63 @@
 
                     <tbody>
 
-                        <tr class="border-b hover:bg-gray-50">
+                        @forelse ($jadwal as $item)
 
-                            <td class="py-4">
-                                08:00 - 09:40
-                            </td>
+                            <tr class="border-b hover:bg-gray-50">
 
-                            <td>
-                                Pemrograman Web
-                            </td>
+                                <td class="py-4">
+                                    {{ $item->waktu }}
+                                </td>
 
-                            <td>
-                                IF-2A
-                            </td>
+                                <td>
+                                    {{ $item->mata_kuliah }}
+                                </td>
 
-                            <td>
-                                Lab 1
-                            </td>
+                                <td>
+                                    {{ $item->kelas }}
+                                </td>
 
-                            <td>
+                                <td>
+                                    {{ $item->ruangan }}
+                                </td>
 
-                                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-xl text-sm">
-                                    Digunakan
-                                </span>
+                                <td>
 
-                            </td>
+                                    @if($item->status == 'Digunakan')
 
-                        </tr>
+                                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-xl text-sm">
+                                            Digunakan
+                                        </span>
 
+                                    @elseif($item->status == 'Kosong')
 
+                                        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm">
+                                            Kosong
+                                        </span>
 
-                        <tr class="border-b hover:bg-gray-50">
+                                    @else
 
-                            <td class="py-4">
-                                10:00 - 11:40
-                            </td>
+                                        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
+                                            Dibatalkan
+                                        </span>
 
-                            <td>
-                                Basis Data
-                            </td>
+                                    @endif
 
-                            <td>
-                                IF-2B
-                            </td>
+                                </td>
 
-                            <td>
-                                Ruang A1
-                            </td>
+                            </tr>
 
-                            <td>
+                        @empty
 
-                                <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm">
-                                    Kosong
-                                </span>
+                            <tr>
 
-                            </td>
+                                <td colspan="5" class="text-center py-10 text-gray-400">
+                                    Belum ada jadwal
+                                </td>
 
-                        </tr>
+                            </tr>
 
-
-
-                        <tr class="hover:bg-gray-50">
-
-                            <td class="py-4">
-                                13:00 - 14:40
-                            </td>
-
-                            <td>
-                                Struktur Data
-                            </td>
-
-                            <td>
-                                IF-2C
-                            </td>
-
-                            <td>
-                                Lab 2
-                            </td>
-
-                            <td>
-
-                                <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
-                                    Dibatalkan
-                                </span>
-
-                            </td>
-
-                        </tr>
+                        @endforelse
 
                     </tbody>
 
