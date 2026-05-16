@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MonitorRuang</title>
+@extends('layouts.app')
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
-</head>
-
-<body class="bg-gray-100 font-sans">
+@section('content')
 
 <div class="flex min-h-screen">
 
@@ -117,24 +109,6 @@
                 {{ now()->translatedFormat('l, d F Y') }}
                 &nbsp;&nbsp;
                 {{ now()->format('H:i') }}
-            </div>
-
-            <div class="flex gap-3">
-
-                <a href="/login"
-                   class="bg-white border border-blue-600 text-blue-600 px-5 py-2 rounded-xl hover:bg-blue-50 transition font-semibold">
-
-                    Login
-
-                </a>
-
-                <a href="/register"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition">
-
-                    Register
-
-                </a>
-
             </div>
 
         </div>
@@ -409,5 +383,4 @@
 
 </div>
 
-</body>
-</html>
+@endsection
