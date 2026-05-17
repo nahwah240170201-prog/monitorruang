@@ -2,50 +2,54 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto px-4 md:px-8 py-8">
+<div class="w-full px-5 md:px-8 py-8 overflow-hidden">
 
     <!-- HEADER -->
-    <div class="mb-7">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-8">
 
-        <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
-            Jadwal Ruangan
-        </h1>
+        <div>
+            <h1 class="text-[34px] font-bold text-gray-800 leading-tight">
+                Jadwal Ruangan
+            </h1>
 
-        <p class="text-gray-500 text-sm md:text-[15px] leading-relaxed">
-            Informasi penggunaan ruang dan laboratorium informatika secara realtime.
-            <br>
-            Data dapat berubah sewaktu-waktu.
-        </p>
-
-    </div>
-
-    <!-- TOP BAR -->
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+            <p class="text-gray-500 text-[15px] mt-2 leading-relaxed">
+                Informasi penggunaan ruang dan laboratorium informatika secara realtime.
+                <br>
+                Status ruangan akan berubah sesuai jadwal yang tersedia.
+            </p>
+        </div>
 
         <!-- DATE -->
         <div class="flex items-center gap-3">
 
             <a href="{{ route('jadwal.index', ['tanggal' => $prevDate]) }}"
-               class="w-9 h-9 rounded-xl border border-gray-200 bg-white flex items-center justify-center
+               class="w-11 h-11 rounded-2xl bg-white border border-gray-200
+                      flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
 
-                <i class="fa-solid fa-chevron-left text-[12px] text-gray-600"></i>
+                <i class="fa-solid fa-chevron-left text-[13px] text-gray-600"></i>
 
             </a>
 
-            <div class="bg-white border border-gray-200 rounded-xl px-5 h-9 flex items-center shadow-sm">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600
+                        text-white px-6 py-3 rounded-2xl shadow-lg">
 
-                <span class="text-[14px] font-semibold text-gray-700">
+                <p class="text-[13px] opacity-80">
+                    Jadwal Hari Ini
+                </p>
+
+                <h2 class="font-semibold text-[16px]">
                     {{ $tanggalFormatted }}
-                </span>
+                </h2>
 
             </div>
 
             <a href="{{ route('jadwal.index', ['tanggal' => $nextDate]) }}"
-               class="w-9 h-9 rounded-xl border border-gray-200 bg-white flex items-center justify-center
+               class="w-11 h-11 rounded-2xl bg-white border border-gray-200
+                      flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
 
-                <i class="fa-solid fa-chevron-right text-[12px] text-gray-600"></i>
+                <i class="fa-solid fa-chevron-right text-[13px] text-gray-600"></i>
 
             </a>
 
@@ -53,16 +57,23 @@
 
     </div>
 
-    <!-- DAY SELECTOR -->
+
+    <!-- HARI -->
     <div class="flex flex-wrap gap-3 mb-8">
 
         @foreach($hariList as $hari)
 
             <a href="{{ route('jadwal.index', ['tanggal' => $hari['date']]) }}"
                @class([
-                    'px-5 h-10 rounded-full flex items-center text-sm font-medium transition-all',
-                    'bg-blue-600 text-white shadow-md shadow-blue-200' => $hari['active'],
-                    'bg-white border border-gray-200 text-gray-600 hover:bg-blue-50 hover:text-blue-600' => !$hari['active']
+                    'px-5 h-11 rounded-2xl flex items-center justify-center
+                     text-[14px] font-semibold transition-all duration-200',
+
+                    'bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105'
+                        => $hari['active'],
+
+                    'bg-white border border-gray-200 text-gray-600
+                     hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'
+                        => !$hari['active']
                ])>
 
                 {{ $hari['label'] }}
@@ -73,39 +84,42 @@
 
     </div>
 
-    <!-- TABLE CARD -->
-    <div class="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm">
 
-        <div class="overflow-x-auto">
+    <!-- TABLE -->
+    <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
 
-            <table class="w-full min-w-[1000px]">
+    <!-- HANYA TABEL YANG SCROLL -->
+    <div class="overflow-x-auto">
 
-                <!-- TABLE HEAD -->
+        <table class="w-full min-w-[950px]">
+
+                <!-- HEAD -->
                 <thead>
 
-                    <tr class="bg-[#f8faff] border-b border-gray-100">
+                    <tr class="bg-gradient-to-r from-[#f8fbff] to-[#f5f7ff] border-b border-gray-200">
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
-                            Waktu
-                        </th>
+                        <th class="px-6 py-5 bg-[#f5f7fb] border-r border-gray-100
+           text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
+    Waktu
+</th>
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
+                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
                             Ruang A1
                         </th>
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
+                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
                             Ruang A2
                         </th>
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
+                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
                             Ruang A3
                         </th>
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
+                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
                             Lab 1
                         </th>
 
-                        <th class="px-6 py-5 text-left text-[13px] font-semibold text-gray-500">
+                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
                             Lab 2
                         </th>
 
@@ -113,54 +127,59 @@
 
                 </thead>
 
+
                 <!-- BODY -->
                 <tbody>
 
                     @foreach($jadwal as $slot)
 
-                    <tr class="border-b border-gray-100 hover:bg-gray-50/40 transition">
+                    <tr class="border-b border-gray-100 hover:bg-[#fafcff] transition-all duration-200">
 
                         <!-- JAM -->
-                        <td class="px-6 py-6">
+                         <td class="px-6 py-5 border-r border-gray-100 bg-[#fafbfc]">
 
-                            <div class="bg-blue-50 border border-blue-100 rounded-xl px-4 py-2 inline-block">
+    <span class="text-[13px] font-semibold text-gray-600 tracking-wide">
+        {{ $slot['waktu'] }}
+    </span>
 
-                                <span class="text-[13px] font-semibold text-blue-700">
-                                    {{ $slot['waktu'] }}
-                                </span>
+</td>
+                        
 
-                            </div>
 
-                        </td>
-
-                        <!-- RUANG -->
+                        <!-- KOLOM -->
                         @foreach(['ruang_a1','ruang_a2','ruang_a3','lab_1','lab_2'] as $kolom)
 
-                        <td class="px-6 py-5">
+                        <td class="px-5 py-5 text-center align-middle">
 
                             @if(!empty($slot[$kolom]))
 
-                                @php $item = $slot[$kolom]; @endphp
+                                    @php
+    $item = $slot[$kolom];
 
-                                @php
-                                    $colors = [
-                                        'teal' => 'bg-teal-50 border-teal-200 text-teal-700',
-                                        'blue' => 'bg-blue-50 border-blue-200 text-blue-700',
-                                        'indigo' => 'bg-indigo-50 border-indigo-200 text-indigo-700',
-                                        'purple' => 'bg-purple-50 border-purple-200 text-purple-700',
-                                        'sky' => 'bg-sky-50 border-sky-200 text-sky-700',
-                                    ];
+    $colors = [
 
-                                    $cls = $colors[$item['warna']] ?? $colors['blue'];
-                                @endphp
+        'red' =>
+            'bg-red-50 border-red-200 text-red-700 shadow-red-100',
 
-                                <div class="min-w-[130px] rounded-2xl border px-4 py-3 {{ $cls }}">
+        'green' =>
+            'bg-green-50 border-green-200 text-green-700 shadow-green-100',
 
-                                    <p class="text-[13px] font-semibold leading-snug">
+    ];
+
+    $cls = $colors[$item['warna']] ?? '';
+
+@endphp
+
+
+                               <div class="h-[72px] flex flex-col justify-center
+                                        rounded-xl border px-3 py-2 shadow-sm
+                                            hover:scale-[1.03] transition-all duration-200 {{ $cls }}">
+
+                                    <p class="text-[12px] font-semibold leading-tight">
                                         {{ $item['mata_kuliah'] }}
                                     </p>
 
-                                    <p class="text-[12px] mt-1 opacity-80">
+                                   <p class="text-[11px] mt-0.5 opacity-70">
                                         {{ $item['kelas'] }}
                                     </p>
 
@@ -168,11 +187,21 @@
 
                             @else
 
-                                <div class="flex justify-center">
+                                <!-- KOSONG -->
+                                <div class="h-[72px] flex flex-col items-center justify-center
+                                            rounded-2xl border-2 border-dashed border-green-200
+                                            bg-green-50">
 
-                                    <span class="text-gray-300 text-lg">
-                                        —
-                                    </span>
+                                    <div class="w-7 h-7 rounded-full bg-green-100
+                                                flex items-center justify-center mb-2">
+
+                                        <i class="fa-solid fa-check text-green-600 text-[13px]"></i>
+
+                                    </div>
+
+                                    <p class="text-[10px] font-semibold text-green-700">
+                                        Ruangan Kosong
+                                    </p>
 
                                 </div>
 
@@ -194,28 +223,31 @@
 
     </div>
 
+
     <!-- LEGEND -->
-    <div class="flex flex-wrap items-center gap-6 mt-6">
+    <div class="flex flex-wrap items-center gap-8 mt-7">
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
 
-            <span class="w-3 h-3 rounded-full bg-blue-100 border border-blue-300"></span>
+    <div class="w-4 h-4 rounded-full bg-red-500"></div>
 
-            <span class="text-sm text-gray-500">
-                Digunakan
-            </span>
+    <span class="text-[14px] text-gray-600 font-medium">
+        Digunakan
+    </span>
 
-        </div>
+</div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
 
-            <span class="w-3 h-3 rounded-full bg-teal-100 border border-teal-300"></span>
+            <div class="w-4 h-4 rounded-full bg-green-500"></div>
 
-            <span class="text-sm text-gray-500">
+            <span class="text-[14px] text-gray-600 font-medium">
                 Kosong
             </span>
 
         </div>
+
+       
 
     </div>
 
