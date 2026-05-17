@@ -80,11 +80,10 @@
 
                 <div class="text-center mb-8">
                     <h1 class="text-3xl font-bold text-blue-600">
-                        Register
+                        REGISTER
                     </h1>
 
-                    <p class="text-gray-500 mt-2">
-                        Register akun dosen atau komting
+                
                     </p>
                 </div>
 
@@ -105,11 +104,12 @@
                         </label>
 
                         <input
-                                type="text"
-                                required
-                                placeholder="Masukkan Nama"
-                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] focus:outline-none focus:border-blue-500"
-                                >
+                            type="text"
+                            name="nama"
+                            required
+                            placeholder="Masukkan Nama"
+                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
+                        >
                     </div>
 
                     <!-- NIM -->
@@ -118,14 +118,13 @@
                             NIM
                         </label>
 
-    
-
-                            <input
-                                type="text"
-                                required
-                                placeholder="Masukkan NIM"
-                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] focus:outline-none focus:border-blue-500"
-                                >
+                        <input
+                            type="text"
+                            name="nim_nidn"
+                            required
+                            placeholder="Masukkan NIM"
+                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
+                        >
                     </div>
 
                     <!-- PASSWORD -->
@@ -135,12 +134,15 @@
                         </label>
 
                         <div class="relative">
-                        <input
-                                type="text"
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
                                 required
                                 placeholder="Masukkan Password"
-                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] focus:outline-none focus:border-blue-500"
-                                >
+                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 pr-12 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
+                            >
 
                             <!-- Eye Icon -->
                             <button 
@@ -150,6 +152,7 @@
                             >
                                 <i id="eyeIcon" class="fa-solid fa-eye"></i>
                             </button>
+
                         </div>
                     </div>
 
@@ -159,11 +162,16 @@
                             Semester
                         </label>
 
-                        <select id="semester"
-                                onchange="changeColor()"
-                                class="w-full border rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <select
+                            id="semester"
+                            name="semester"
+                            onchange="updateKelas()"
+                            class="w-full border h-[54px] border border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        >
 
-                            <option value="">-- Pilih Semester --</option>
+                            <option value="">
+                                -- Pilih Semester --
+                            </option>
 
                             <option value="2">Semester 2</option>
                             <option value="4">Semester 4</option>
@@ -171,8 +179,28 @@
                             <option value="8">Semester 8</option>
 
                         </select>
-                        
                     </div>
+
+
+                    <!-- MATA KULIAH -->
+                        <div>
+                            <label class="block mb-2 font-semibold">
+                                Mata Kuliah
+                            </label>
+
+                            <select
+                                id="matkul"
+                                name="matkul"
+                                onchange="updateKelasByMatkul(); changeMatkulColor()"
+                                class="w-full border h-[54px] border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            >
+
+                                <option value="">
+                                    -- Pilih Mata Kuliah --
+                                </option>
+
+                            </select>
+                        </div>
 
                     <!-- KELAS -->
                     <div class="mt-5">
@@ -181,12 +209,12 @@
                             Pilih Kelas
                         </label>
 
-                        <input
-                                type="text"
-                                required
-                                placeholder="Masukkan Kelas"
-                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] focus:outline-none focus:border-blue-500"
-                                >
+                        <!-- BOX -->
+                        <div class="border border-gray-300 rounded-xl px-4 pr-12 pt-2 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500">
+
+                            <p class="text-gray-400 text-sm mb-3">
+                                -- Pilih Kelas --
+                            </p>
 
                             <!-- CONTAINER -->
                             <div id="kelasContainer"
@@ -196,11 +224,13 @@
 
                         </div>
 
+                    </div>
 
                     <!-- BUTTON -->
-                    <button type="submit"
-                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition">
-
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition"
+                    >
                         Register
                     </button>
 
@@ -214,17 +244,23 @@
 
 </div>
 
+<!-- SCRIPT -->
 <script>
+
 function togglePassword() {
+
     const passwordInput = document.getElementById("password");
     const eyeIcon = document.getElementById("eyeIcon");
 
     if (passwordInput.type === "password") {
+
         passwordInput.type = "text";
 
         eyeIcon.classList.remove("fa-eye");
         eyeIcon.classList.add("fa-eye-slash");
+
     } else {
+
         passwordInput.type = "password";
 
         eyeIcon.classList.remove("fa-eye-slash");
@@ -232,26 +268,109 @@ function togglePassword() {
     }
 }
 
+
+
 function updateKelas() {
 
     const semester = document.getElementById("semester").value;
+    const matkul = document.getElementById("matkul");
+
+    matkul.innerHTML = `
+        <option value="">
+            -- Pilih Mata Kuliah --
+            
+        </option>
+    `;
+
+    let daftarMatkul = [];
+
+    if (semester === "2") {
+
+        daftarMatkul = [
+            "Algoritma",
+            "Matematika Diskrit",
+            "Pemrograman Dasar"
+        ];
+    }
+
+    else if (semester === "4") {
+
+        daftarMatkul = [
+            "Basis Data",
+            "Pemrograman Web",
+            "Jaringan Komputer"
+        ];
+    }
+
+    else if (semester === "6") {
+
+        daftarMatkul = [
+            "Machine Learning",
+            "Cloud Computing"
+        ];
+    }
+
+    else if (semester === "8") {
+
+        daftarMatkul = [
+            "Skripsi"
+        ];
+    }
+
+    daftarMatkul.forEach(function(item) {
+
+        matkul.innerHTML += `
+            <option value="${item}">
+                ${item}
+            </option>
+        `;
+    });
+
+    changeColor();
+
+    document.getElementById("kelasContainer").innerHTML = "";
+}
+
+function updateKelasByMatkul() {
+
+    const matkul = document.getElementById("matkul").value;
     const container = document.getElementById("kelasContainer");
 
     let kelas = [];
 
-    if (semester === "2") {
-        kelas = ["IF-2A", "IF-2B", "IF-2C"];
+    if (matkul === "Algoritma") {
+        kelas = ["IF-2A", "IF-2B"];
     }
 
-    else if (semester === "4") {
-        kelas = ["IF-4A", "IF-4B", "IF-4C"];
+    else if (matkul === "Matematika Diskrit") {
+        kelas = ["IF-2C"];
     }
 
-    else if (semester === "6") {
-        kelas = ["IF-6A", "IF-6B"];
+    else if (matkul === "Pemrograman Dasar") {
+        kelas = ["IF-2A", "IF-2C"];
     }
 
-    else if (semester === "8") {
+    else if (matkul === "Basis Data") {
+        kelas = ["IF-4A", "IF-4B"];
+    }
+
+    else if (matkul === "Pemrograman Web") {
+        kelas = ["IF-4A", "IF-4C"];
+    }
+
+    else if (matkul === "Jaringan Komputer") {
+        kelas = ["IF-4B"];
+    }
+
+    else if (matkul === "Machine Learning") {
+        kelas = ["IF-6A"];
+    }
+
+    else if (matkul === "Cloud Computing") {
+        kelas = ["IF-6B"];
+    }
+
+    else if (matkul === "Skripsi") {
         kelas = ["IF-8A"];
     }
 
@@ -260,7 +379,7 @@ function updateKelas() {
     kelas.forEach(function(item) {
 
         container.innerHTML += `
-        
+
             <label class="
                 flex items-center gap-2
                 border border-gray-300
@@ -287,6 +406,22 @@ function updateKelas() {
         `;
     });
 }
+
+function changeMatkulColor() {
+
+    const matkul = document.getElementById("matkul");
+
+    if (matkul.value !== "") {
+        matkul.classList.remove("text-gray-400");
+        matkul.classList.add("text-black");
+    } else {
+        matkul.classList.remove("text-black");
+        matkul.classList.add("text-gray-400");
+    }
+}
+
+</script>
+
 </script>
 
 @endsection
