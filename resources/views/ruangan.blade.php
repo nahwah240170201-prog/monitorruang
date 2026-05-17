@@ -4,9 +4,6 @@
 
 <div class="flex min-h-screen bg-gray-100">
 
-  
-
-
     <!-- CONTENT -->
     <main class="flex-1 p-8">
 
@@ -24,8 +21,6 @@
 
             </div>
 
-
-
             <!-- TABLE -->
             <div class="overflow-x-auto">
 
@@ -36,13 +31,14 @@
                         <tr class="border-b text-left text-gray-500">
 
                             <th class="py-4">No</th>
-                            <th>Nama Ruangan</th>
+                            <th>Ruangan</th>
+                            <th>Mata Kuliah</th>
+                            <th>Kelas</th>
                             <th>Status</th>
 
                         </tr>
 
                     </thead>
-
 
                     <tbody>
 
@@ -56,6 +52,14 @@
 
                             <td>
                                 {{ $item->ruangan }}
+                            </td>
+
+                            <td>
+                                {{ $item->mata_kuliah ?? '-' }}
+                            </td>
+
+                            <td>
+                                {{ $item->kelas ?? '-' }}
                             </td>
 
                             <td>

@@ -71,7 +71,7 @@ class="{{ request()->routeIs('daftar.ruangan')
     : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-    <i class="fa-solid fa-building"></i>
+     <i class="fa-regular fa-file-lines"></i>
 
     <span>Daftar Ruangan</span>
 
@@ -84,19 +84,24 @@ class="{{ request()->routeIs('ruang.kosong')
     : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-    <i class="fa-regular fa-file-lines"></i>
+   
+    <i class="fa-solid fa-building"></i>
 
     <span>Ruang Kosong</span>
 
 </a>
             <!-- TENTANG -->
-            <a href="#"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition duration-200">
+            <a href="{{ route('tentang') }}"
+            class="{{ request()->routeIs('tentang')
+                ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+                : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+            }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
                 <i class="fa-solid fa-circle-info"></i>
 
                 <span>Tentang</span>
-            </a>
+
+            </a>       
 
         </nav>
 
@@ -129,8 +134,16 @@ class="{{ request()->routeIs('ruang.kosong')
 
             <div class="flex items-center gap-3 mb-4">
 
-                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
-                    class="w-14 h-14">
+                 <div class="w-10 h-10
+                                rounded-2xl
+                                bg-blue-50
+                                flex items-center justify-center
+                                text-black
+                                -500 text-[26px]">
+
+                        <i class="fa-solid fa-user-group"></i>
+
+                    </div>
 
                 <div>
                     <h3 class="font-bold text-[15px]">

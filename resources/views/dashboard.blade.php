@@ -33,8 +33,8 @@
 
                 <div>
 
-                    <img src="https://cdn-icons-png.flaticon.com/512/1048/1048941.png"
-                         class="w-52 opacity-90">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png"
+                         class="w-70 opacity-90">
 
                 </div>
 
