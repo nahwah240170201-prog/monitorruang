@@ -46,12 +46,6 @@ Route::get('/register', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 
-<<<<<<< HEAD
-Route::get('/login', function () {
-    return view('login');
-});
-=======
-
 /*
 |--------------------------------------------------------------------------
 | JADWAL
@@ -60,4 +54,19 @@ Route::get('/login', function () {
 
 Route::get('/jadwal', [JadwalController::class, 'index'])
     ->name('jadwal.index');
->>>>>>> 7a518aff31ae1135628f74fe31640d294b0b1f5c
+
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD KOMTING
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/dashboard-komting', function () {
+
+    $jadwal = Jadwal::latest()->get();
+
+    return view('dashboard-komting', [
+        'jadwal' => $jadwal
+    ]);
+
+})->middleware('auth');
