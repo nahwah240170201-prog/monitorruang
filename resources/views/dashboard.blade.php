@@ -4,115 +4,14 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white shadow-lg p-5 flex flex-col justify-between">
-
-        <div>
-
-            <!-- LOGO -->
-            <div class="mb-10">
-                <h1 class="text-2xl font-bold text-blue-600">
-                    MonitorRuang
-                </h1>
-
-                <p class="text-gray-500 text-sm">
-                    Informatika
-                </p>
-            </div>
-
-
-            <!-- MENU -->
-            <nav class="space-y-3">
-
-                <a href="#"
-                   class="flex items-center gap-3 bg-blue-100 text-blue-600 px-4 py-3 rounded-xl font-semibold">
-                    Dashboard
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-4 py-3 rounded-xl">
-                    Jadwal Hari Ini
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-4 py-3 rounded-xl">
-                    Daftar Ruangan
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-4 py-3 rounded-xl">
-                    Ruang Kosong
-                </a>
-
-            </nav>
-
-
-            <!-- STATUS -->
-            <div class="mt-10">
-
-                <h2 class="text-gray-400 text-sm font-bold mb-4 uppercase">
-                    Status Ruangan
-                </h2>
-
-                <div class="space-y-3">
-
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span>Kosong</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                        <span>Digunakan</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <span>Dibatalkan</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- USER CARD -->
-        <div class="bg-gray-50 rounded-2xl p-4 border mt-10">
-
-            <h3 class="font-bold text-lg mb-1">
-                Mahasiswa
-            </h3>
-
-            <p class="text-gray-500 text-sm mb-4">
-                Public User
-            </p>
-
-            <div class="bg-blue-50 text-blue-600 text-sm rounded-xl p-3">
-                Tidak perlu login untuk melihat informasi ruangan.
-            </div>
-
-        </div>
-
-    </aside>
-
-
-
     <!-- CONTENT -->
     <main class="flex-1 p-6">
 
         <!-- TOPBAR -->
         <div class="flex justify-between items-center mb-5">
 
-            <div class="text-gray-600 font-medium">
-                {{ now()->translatedFormat('l, d F Y') }}
-                &nbsp;&nbsp;
-                {{ now()->format('H:i') }}
-            </div>
 
         </div>
-
 
 
         <!-- HERO -->
