@@ -12,12 +12,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SemesterSeeder::class,
             JadwalSeeder::class,
-<<<<<<< HEAD
-=======
+
             KelasSeeder::class,
             MataKuliahSeeder::class,
             SemesterSeeder::class,
->>>>>>> 521cb72cda8249e311bc079e9d7237cc65a41bda
         ]);
     }
 }
