@@ -12,11 +12,11 @@ class JadwalSeeder extends Seeder
         DB::table('jadwals')->insert([
 
             [
-                'waktu' => '08:00 - 09:40',
+                'waktu' => '08:00 - 10:40',
                 'mata_kuliah' => 'Pemrograman Web',
                 'kelas' => 'IF-2A',
                 'ruangan' => 'Lab 1',
-                'status' => 'Digunakan',
+                'status' => 'kosong',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
