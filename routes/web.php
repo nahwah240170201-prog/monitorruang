@@ -70,3 +70,36 @@ Route::get('/dashboard-komting', function () {
     ]);
 
 })->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| DAFTAR RUANGAN
+|--------------------------------------------------------------------------
+*/
+Route::get('/daftar-ruangan', function () {
+
+    $ruangan = \App\Models\Jadwal::select('ruangan', 'status')
+        ->distinct()
+        ->get();
+
+    return view('daftar-ruangan', compact('ruangan'));
+
+})->name('daftar.ruangan');
+
+/*
+|--------------------------------------------------------------------------
+| RUANGAN
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/ruangan', function () {
+
+    $ruangan = Jadwal::select('ruangan', 'status')
+        ->distinct()
+        ->get();
+
+    return view('ruangan', [
+        'ruangan' => $ruangan
+    ]);
+
+});
