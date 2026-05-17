@@ -102,3 +102,20 @@ Route::get('/daftar-ruangan', function () {
     return view('ruangan', compact('ruangan'));
 
 })->name('daftar.ruangan');
+
+
+/*
+|--------------------------------------------------------------------------
+| RUANGAN kosong
+|--------------------------------------------------------------------------
+*/
+Route::get('/ruang-kosong', function () {
+
+    $ruanganKosong = \App\Models\Jadwal::where('status', 'Kosong')
+        ->select('ruangan', 'status')
+        ->distinct()
+        ->get();
+
+    return view('ruang-kosong', compact('ruanganKosong'));
+
+})->name('ruang.kosong');
