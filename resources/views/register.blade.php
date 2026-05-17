@@ -82,9 +82,6 @@
                     <h1 class="text-3xl font-bold text-blue-600">
                         REGISTER
                     </h1>
-
-                
-                    </p>
                 </div>
 
                 {{-- ERROR --}}
@@ -166,7 +163,7 @@
                             id="semester"
                             name="semester"
                             onchange="updateKelas()"
-                            class="w-full border h-[54px] border border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         >
 
                             <option value="">
@@ -181,26 +178,21 @@
                         </select>
                     </div>
 
-
                     <!-- MATA KULIAH -->
-                        <div>
-                            <label class="block mb-2 font-semibold">
-                                Mata Kuliah
-                            </label>
+                    <div>
+                        <label class="block mb-3 font-semibold">
+                            Mata Kuliah
+                        </label>
 
-                            <select
-                                id="matkul"
-                                name="matkul"
-                                onchange="updateKelasByMatkul(); changeMatkulColor()"
-                                class="w-full border h-[54px] border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            >
+                        <div class="border border-gray-300 rounded-xl px-4 pt-3 pb-4">
 
-                                <option value="">
-                                    -- Pilih Mata Kuliah --
-                                </option>
+                            <div id="matkulContainer"
+                                 class="grid grid-cols-1 gap-3 mb-3">
 
-                            </select>
+                            </div>
+
                         </div>
+                    </div>
 
                     <!-- KELAS -->
                     <div class="mt-5">
@@ -209,16 +201,10 @@
                             Pilih Kelas
                         </label>
 
-                        <!-- BOX -->
-                        <div class="border border-gray-300 rounded-xl px-4 pr-12 pt-2 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500">
+                        <div class="border border-gray-300 rounded-xl px-4 pt-3 pb-4">
 
-                            <p class="text-gray-400 text-sm mb-3">
-                                -- Pilih Kelas --
-                            </p>
-
-                            <!-- CONTAINER -->
                             <div id="kelasContainer"
-                                 class="grid grid-cols-3 gap-3">
+                                class="space-y-4">
 
                             </div>
 
@@ -244,7 +230,6 @@
 
 </div>
 
-<!-- SCRIPT -->
 <script>
 
 function togglePassword() {
@@ -268,45 +253,51 @@ function togglePassword() {
     }
 }
 
-
-
 function updateKelas() {
 
     const semester = document.getElementById("semester").value;
-    const matkul = document.getElementById("matkul");
+    const container = document.getElementById("matkulContainer");
 
-    matkul.innerHTML = `
-        <option value="">
-            -- Pilih Mata Kuliah --
-            
-        </option>
-    `;
+    container.innerHTML = "";
 
     let daftarMatkul = [];
 
     if (semester === "2") {
 
         daftarMatkul = [
-            "Algoritma",
-            "Matematika Diskrit",
-            "Pemrograman Dasar"
+            "ALGORITMA DAN STRUKTUR DATA I",
+            "ALJABAR LINIER ELEMENTER",
+            "ANALISIS DAN PERANCANGAN SISTEM",
+            "KEMALKUSSALEHAN",
+            "KEWARGANEGARAAN",
+            "LOGIKA INFORMATIKA",
+            "MATEMATIKA DISKRET",
+            "TEKNOLOGI INFORMASI DAN KEWIRAUSAHAAN"
         ];
     }
 
     else if (semester === "4") {
 
         daftarMatkul = [
-            "Basis Data",
-            "Pemrograman Web",
-            "Jaringan Komputer"
+            "Data Mining",
+            "Desain dan Analsis Algoritma",
+            "Human Computer Interaction",
+            "Internet Of Things",
+            "Jaringan Komputer Fundamental",
+            "Pemrograman Basis Data",
+            "Pemrograman Web Lanjut"
         ];
     }
 
     else if (semester === "6") {
 
         daftarMatkul = [
-            "Machine Learning",
-            "Cloud Computing"
+            "BIG DATA",
+            "FORENSIKA DIGITAL",
+            "KECERDASAN KOMPUTASIONAL",
+            "METODOLOGI PENELITIAN",
+            "NATURAL LANGUAGE PROCESSING",
+            "PENGOLAHAN SUARA",
         ];
     }
 
@@ -318,65 +309,6 @@ function updateKelas() {
     }
 
     daftarMatkul.forEach(function(item) {
-
-        matkul.innerHTML += `
-            <option value="${item}">
-                ${item}
-            </option>
-        `;
-    });
-
-    changeColor();
-
-    document.getElementById("kelasContainer").innerHTML = "";
-}
-
-function updateKelasByMatkul() {
-
-    const matkul = document.getElementById("matkul").value;
-    const container = document.getElementById("kelasContainer");
-
-    let kelas = [];
-
-    if (matkul === "Algoritma") {
-        kelas = ["IF-2A", "IF-2B"];
-    }
-
-    else if (matkul === "Matematika Diskrit") {
-        kelas = ["IF-2C"];
-    }
-
-    else if (matkul === "Pemrograman Dasar") {
-        kelas = ["IF-2A", "IF-2C"];
-    }
-
-    else if (matkul === "Basis Data") {
-        kelas = ["IF-4A", "IF-4B"];
-    }
-
-    else if (matkul === "Pemrograman Web") {
-        kelas = ["IF-4A", "IF-4C"];
-    }
-
-    else if (matkul === "Jaringan Komputer") {
-        kelas = ["IF-4B"];
-    }
-
-    else if (matkul === "Machine Learning") {
-        kelas = ["IF-6A"];
-    }
-
-    else if (matkul === "Cloud Computing") {
-        kelas = ["IF-6B"];
-    }
-
-    else if (matkul === "Skripsi") {
-        kelas = ["IF-8A"];
-    }
-
-    container.innerHTML = "";
-
-    kelas.forEach(function(item) {
 
         container.innerHTML += `
 
@@ -390,10 +322,11 @@ function updateKelasByMatkul() {
                 text-sm
             ">
 
-                <input 
+                <input
                     type="checkbox"
-                    name="kelas[]"
+                    name="matkul[]"
                     value="${item}"
+                    onchange="updateKelasByMatkul()"
                     class="w-4 h-4 accent-blue-600"
                 >
 
@@ -405,22 +338,164 @@ function updateKelasByMatkul() {
 
         `;
     });
+
+    document.getElementById("kelasContainer").innerHTML = "";
 }
 
-function changeMatkulColor() {
+function updateKelasByMatkul() {
 
-    const matkul = document.getElementById("matkul");
+    const checkedMatkul = document.querySelectorAll('input[name="matkul[]"]:checked');
 
-    if (matkul.value !== "") {
-        matkul.classList.remove("text-gray-400");
-        matkul.classList.add("text-black");
-    } else {
-        matkul.classList.remove("text-black");
-        matkul.classList.add("text-gray-400");
-    }
+    const container = document.getElementById("kelasContainer");
+
+    container.innerHTML = "";
+
+    checkedMatkul.forEach(function(matkulItem) {
+
+        const matkul = matkulItem.value;
+
+        let kelas = [];
+
+        if (matkul === "ALGORITMA DAN STRUKTUR DATA I") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
+        }
+
+        else if (matkul === "ALJABAR LINIER ELEMENTER") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
+        }
+
+        else if (matkul === "ANALISIS DAN PERANCANGAN SISTEM") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
+        }
+
+        else if (matkul === "KEMALKUSSALEHAN") {
+            kelas = ["A1", "A2", "A3"];
+        }
+
+        else if (matkul === "KEWARGANEGARAAN") {
+            kelas = ["A1", "A2", "A3"];
+        }
+
+        else if (matkul === "LOGIKA INFORMATIKA") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
+        }
+
+        else if (matkul === "MATEMATIKA DISKRET") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"];
+        }
+
+        else if (matkul === "TEKNOLOGI INFORMASI DAN KEWIRAUSAHAAN") {
+            kelas = ["A1", "A2", "A3"];
+        }
+
+        else if (matkul === "Data Mining") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"];
+        }
+
+        else if (matkul === "Desain dan Analsis Algoritma") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6"];
+        }
+
+        else if (matkul === "Human Computer Interaction") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6"];
+        }
+
+        else if (matkul === "Internet Of Things") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"];
+        }
+
+        else if (matkul === "Jaringan Komputer Fundamental") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6"];
+        }
+
+        else if (matkul === "Pemrograman Basis Data") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6"];
+        }
+
+        else if (matkul === "Pemrograman Web Lanjut") {
+            kelas = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"];
+        }
+
+        else if (matkul === "BIG DATA") {
+            kelas = ["A1", "A2", "A3"];
+        }
+
+        else if (matkul === "FORENSIKA DIGITAL") {
+            kelas = ["A1", "A2", "A3"];
+        }
+
+        else if (matkul === "KECERDASAN KOMPUTASIONAL") {
+            kelas = ["A1", "A2", "A3", "A4", "A5"];
+        }
+
+        else if (matkul === "METODOLOGI PENELITIAN") {
+            kelas = ["A1", "A2", "A3", "A4"];
+        }
+
+        else if (matkul === "NATURAL LANGUAGE PROCESSING") {
+            kelas = ["A1", "A2", "A3", "A4", "A5"];
+        }
+
+        else if (matkul === "PENGOLAHAN SUARA") {
+            kelas = ["A1", "A2", "A3", "A4", "A5"];
+        }
+
+        else if (matkul === "Skripsi") {
+            kelas = ["A1"];
+        }
+
+        
+
+        let kelasHTML = `
+
+            <div class="border border-gray-300 rounded-xl p-4">
+
+                <h3 class="font-semibold text-blue-600 mb-3">
+                    ${matkul}
+                </h3>
+
+                <div class="grid grid-cols-3 gap-3">
+        `;
+
+        kelas.forEach(function(item) {
+
+            kelasHTML += `
+
+                <label class="
+                    flex items-center gap-2
+                    border border-gray-300
+                    rounded-lg
+                    px-3 py-2
+                    cursor-pointer
+                    hover:bg-blue-50
+                    text-sm
+                ">
+
+                    <input
+                        type="radio"
+                        name="kelas[${matkul}]"
+                        value="${item}"
+                        class="w-4 h-4 accent-blue-600"
+                    >
+
+                    <span class="text-gray-700 font-medium">
+                        ${item}
+                    </span>
+
+                </label>
+
+            `;
+        });
+
+        kelasHTML += `
+                </div>
+            </div>
+        `;
+
+        container.innerHTML += kelasHTML;
+
+    });
 }
-
-</script>
 
 </script>
 
