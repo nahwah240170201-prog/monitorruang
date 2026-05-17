@@ -65,13 +65,17 @@
             </a>
 
             <!-- RUANGAN -->
-            <a href="#"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition duration-200">
+            <a href="{{ route('daftar.ruangan') }}"
+class="{{ request()->routeIs('daftar.ruangan')
+    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-                <i class="fa-solid fa-building"></i>
+    <i class="fa-solid fa-building"></i>
 
-                <span>Daftar Ruangan</span>
-            </a>
+    <span>Daftar Ruangan</span>
+
+</a>
 
             <!-- RUANG KOSONG -->
             <a href="#"

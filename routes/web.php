@@ -109,19 +109,14 @@ Route::get('/daftar-ruangan', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/ruangan', function () {
 
-    $ruangan = Jadwal::select('ruangan', 'status')
+Route::get('/daftar-ruangan', function () {
+
+    $ruangan = \App\Models\Jadwal::select('ruangan', 'status')
         ->distinct()
         ->get();
 
-    return view('ruangan', [
-        'ruangan' => $ruangan
-    ]);
-
-});
-
-
+    return view('ruangan', compact('ruangan'));
 /*
 |--------------------------------------------------------------------------
 | TENTANG
@@ -131,3 +126,6 @@ Route::get('/ruangan', function () {
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
+
+})->name('daftar.ruangan');
+

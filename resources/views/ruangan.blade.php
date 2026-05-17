@@ -4,76 +4,6 @@
 
 <div class="flex min-h-screen bg-gray-100">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white shadow-lg p-5">
-
-        <div>
-
-            <div class="mb-10">
-
-                <h1 class="text-2xl font-bold text-blue-600">
-                    MonitorRuang
-                </h1>
-
-                <p class="text-gray-500 text-sm">
-                    Informatika
-                </p>
-
-            </div>
-
-
-            <!-- MENU -->
-            <nav class="space-y-3">
-
-                <a href="/"
-                   class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-4 py-3 rounded-xl">
-
-                    Dashboard
-
-                </a>
-
-
-                <a href="/ruangan"
-                   class="flex items-center gap-3 bg-blue-100 text-blue-600 px-4 py-3 rounded-xl font-semibold">
-
-                    Daftar Ruangan
-
-                </a>
-
-            </nav>
-
-
-
-            <!-- STATUS -->
-            <div class="mt-10">
-
-                <h2 class="text-gray-400 text-sm font-bold mb-4 uppercase">
-                    Status Ruangan
-                </h2>
-
-                <div class="space-y-3">
-
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span>Kosong</span>
-                    </div>
-
-
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                        <span>Digunakan</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </aside>
-
-
-
     <!-- CONTENT -->
     <main class="flex-1 p-8">
 
@@ -91,8 +21,6 @@
 
             </div>
 
-
-
             <!-- TABLE -->
             <div class="overflow-x-auto">
 
@@ -103,13 +31,14 @@
                         <tr class="border-b text-left text-gray-500">
 
                             <th class="py-4">No</th>
-                            <th>Nama Ruangan</th>
+                            <th>Ruangan</th>
+                            <th>Mata Kuliah</th>
+                            <th>Kelas</th>
                             <th>Status</th>
 
                         </tr>
 
                     </thead>
-
 
                     <tbody>
 
@@ -123,6 +52,14 @@
 
                             <td>
                                 {{ $item->ruangan }}
+                            </td>
+
+                            <td>
+                                {{ $item->mata_kuliah ?? '-' }}
+                            </td>
+
+                            <td>
+                                {{ $item->kelas ?? '-' }}
                             </td>
 
                             <td>
