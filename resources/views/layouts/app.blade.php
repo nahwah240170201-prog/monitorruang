@@ -108,14 +108,10 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <span class="text-[15px] text-gray-600">Digunakan</span>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <span class="text-[15px] text-gray-600">Dibatalkan</span>
-                </div>
 
             </div>
 
