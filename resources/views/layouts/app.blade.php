@@ -157,18 +157,37 @@
 
             <div class="bg-white rounded-3xl px-8 h-[82px] flex items-center justify-between shadow-sm">
 
-                <!-- DATE -->
-                <div>
+                
+                 <!-- DATE -->
+                <div class="hidden md:flex items-center gap-4
+            bg-[#f5f7ff]
+            border border-blue-100
+            px-5 py-3 rounded-2xl">
 
-                    <h2 class="text-[18px] font-bold text-gray-700">
-                        {{ now()->translatedFormat('l, d F Y') }}
-                    </h2>
+    <div class="w-11 h-11 rounded-xl bg-blue-100
+                flex items-center justify-center
+                text-blue-600">
 
-                    <p class="text-[14px] text-gray-500 mt-1">
-                        {{ now()->format('H:i') }}
-                    </p>
+        <i class="fa-regular fa-calendar-days"></i>
 
-                </div>
+    </div>
+
+    <div>
+
+        <!-- TANGGAL -->
+        <div id="tanggalRealtime"
+             class="text-[14px] font-semibold text-gray-700">
+        </div>
+
+        <!-- JAM -->
+        <div id="jamRealtime"
+             class="text-[13px] text-gray-500 mt-1">
+        </div>
+
+    </div>
+
+</div>
+                
 
                 <!-- RIGHT -->
                 <div class="flex items-center gap-4">
@@ -201,6 +220,43 @@
     </div>
 
 </div>
+<script>
 
+function updateDateTime() {
+
+    const now = new Date();
+
+    // HARI
+    const hari = now.toLocaleDateString('id-ID', {
+        weekday: 'long'
+    });
+
+    // TANGGAL
+    const tanggal = now.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    // JAM
+    const jam = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+
+    // TAMPILKAN
+    document.getElementById('tanggalRealtime').innerHTML =
+        `${hari}, ${tanggal}`;
+
+    document.getElementById('jamRealtime').innerHTML = jam;
+}
+
+// JALANKAN PERTAMA
+updateDateTime();
+
+// UPDATE TERUS
+setInterval(updateDateTime, 1000);
+
+</script>
 </body>
 </html>
