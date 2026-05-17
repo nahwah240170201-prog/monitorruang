@@ -5,226 +5,239 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<div class="min-h-screen p-3">
+<div class="min-h-screen flex items-center justify-center px-5 py-8 bg-[#fafafa]">
 
-    <!-- BORDER LUAR -->
-    <div class="w-full min-h-[97vh] flex overflow-hidden rounded-3xl">
+    <div class="w-full max-w-[520px]
+                bg-white
+                rounded-[32px]
+                shadow-xl shadow-blue-100/40
+                border border-gray-100
+                px-10 py-12">
 
-        <!-- LEFT -->
-        <div class="w-[41%] bg-[#eef2ff] relative px-10 py-10">
+        <!-- LOGO -->
+        <div class="flex justify-center mb-4">
 
-            <!-- Rectangle belakang -->
-            <div class="absolute bottom-0 left-0 w-full h-[90px] bg-[#dde5ff]"></div>
+            <div class="w-[78px] h-[78px]
+                        rounded-[26px]
+                        bg-gradient-to-br from-blue-500 to-blue-700
+                        flex items-center justify-center
+                        text-white text-[32px]
+                        shadow-lg shadow-blue-200">
 
-            <div class="relative z-10">
-
-                <!-- Heading -->
-                <div class="max-w-[400px]">
-
-                    <h2 class="text-[34px] leading-[44px] font-bold text-black mb-5">
-                        Pantau Penggunaan Ruang &
-                        Laboratorium Informatika
-                        Secara Realtime
-                    </h2>
-
-                    <p class="text-[16px] text-gray-700 leading-[28px] mb-14">
-                        Daftarkan akun Anda untuk mengelola status penggunaan
-                        ruang kelas secara realtime
-                    </p>
-
-                </div>
-
-                <!-- Info -->
-                <div class="space-y-8">
-
-                    <div>
-                        <h3 class="font-semibold text-[18px] mb-1">
-                            Data Akurat
-                        </h3>
-
-                        <p class="text-gray-700 text-[15px] leading-[26px]">
-                            Status ruangan diperbarui otomatis setiap 30 detik
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-semibold text-[18px] mb-1">
-                            Akses Mudah
-                        </h3>
-
-                        <p class="text-gray-700 text-[15px] leading-[26px]">
-                            Mahasiswa dapat melihat informasi tanpa perlu login
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-semibold text-[18px] mb-1">
-                            Aman & Terpercaya
-                        </h3>
-
-                        <p class="text-gray-700 text-[15px] leading-[26px]">
-                            Data dijaga dengan aman dan dapat diandalkan
-                        </p>
-                    </div>
-
-                </div>
+                <i class="fa-solid fa-layer-group"></i>
 
             </div>
 
         </div>
 
-        <!-- RIGHT -->
-        <div class="flex-1 bg-[#fafafa] flex items-center justify-center px-8 py-10">
+        <!-- TITLE -->
+        <div class="text-center mb-10">
 
-            <div class="bg-white w-full max-w-md rounded-3xl shadow-lg p-8">
+            <h1 class="text-[45px] font-bold text-blue-800 mb-2">
+                Register
+            </h1>
 
-                <div class="text-center mb-8">
-                    <h1 class="text-3xl font-bold text-blue-600">
-                        REGISTER
-                    </h1>
-                </div>
+            <p class="text-gray-500 text-[15px] leading-relaxed">
+                Buat akun untuk mengakses sistem monitoring ruang dan laboratorium informatika.
+            </p>
 
-                {{-- ERROR --}}
-                @if(session('error'))
-                    <div class="bg-red-100 text-red-600 p-3 rounded-xl mb-4">
-                        {{ session('error') }}
-                    </div>
-                @endif
+        </div>
 
-                <form action="/register" method="POST" class="space-y-5">
-                    @csrf
+        {{-- ERROR --}}
+        @if(session('error'))
+            <div class="bg-red-100 text-red-600 p-3 rounded-2xl mb-5">
+                {{ session('error') }}
+            </div>
+        @endif
 
-                    <!-- NAMA -->
-                    <div>
-                        <label class="block mb-2 font-semibold">
-                            Nama
-                        </label>
+        <form action="/register" method="POST" class="space-y-6">
+            @csrf
 
-                        <input
-                            type="text"
-                            name="nama"
-                            required
-                            placeholder="Masukkan Nama"
-                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
-                        >
-                    </div>
+            <!-- NAMA -->
+            <div>
 
-                    <!-- NIM -->
-                    <div>
-                        <label class="block mb-2 font-semibold">
-                            NIM
-                        </label>
+                <label class="block text-[15px] font-semibold mb-2 text-gray-700">
+                    Nama
+                </label>
 
-                        <input
-                            type="text"
-                            name="nim_nidn"
-                            required
-                            placeholder="Masukkan NIM"
-                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
-                        >
-                    </div>
+                <input
+                    type="text"
+                    name="nama"
+                    required
+                    placeholder="Masukkan Nama"
+                    class="w-full h-[56px]
+                           rounded-2xl
+                           border border-gray-200
+                           bg-[#f9fbff]
+                           px-5
+                           text-[15px]
+                           focus:outline-none
+                           focus:border-blue-500
+                           focus:bg-white
+                           transition"
+                >
 
-                    <!-- PASSWORD -->
-                    <div>
-                        <label class="block mb-2 font-semibold">
-                            Password
-                        </label>
+            </div>
 
-                        <div class="relative">
+            <!-- NIM -->
+            <div>
 
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                placeholder="Masukkan Password"
-                                class="w-full h-[54px] border border-gray-300 rounded-xl px-4 pr-12 text-[15px] placeholder:text-gray-400 focus:outline-none focus:border-blue-500"
-                            >
+                <label class="block text-[15px] font-semibold mb-2 text-gray-700">
+                    NIM
+                </label>
 
-                            <!-- Eye Icon -->
-                            <button 
-                                type="button"
-                                onclick="togglePassword()"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
-                            >
-                                <i id="eyeIcon" class="fa-solid fa-eye"></i>
-                            </button>
+                <input
+                    type="text"
+                    name="nim_nidn"
+                    required
+                    placeholder="Masukkan NIM"
+                    class="w-full h-[56px]
+                           rounded-2xl
+                           border border-gray-200
+                           bg-[#f9fbff]
+                           px-5
+                           text-[15px]
+                           focus:outline-none
+                           focus:border-blue-500
+                           focus:bg-white
+                           transition"
+                >
 
-                        </div>
-                    </div>
+            </div>
 
-                    <!-- SEMESTER -->
-                    <div>
-                        <label class="block mb-2 font-semibold">
-                            Semester
-                        </label>
+            <!-- PASSWORD -->
+            <div>
 
-                        <select
-                            id="semester"
-                            name="semester"
-                            onchange="updateKelas()"
-                            class="w-full h-[54px] border border-gray-300 rounded-xl px-4 py-3 text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
+                <label class="block text-[15px] font-semibold mb-2 text-gray-700">
+                    Password
+                </label>
 
-                            <option value="">
-                                -- Pilih Semester --
-                            </option>
+                <div class="relative">
 
-                            <option value="2">Semester 2</option>
-                            <option value="4">Semester 4</option>
-                            <option value="6">Semester 6</option>
-                            <option value="8">Semester 8</option>
-
-                        </select>
-                    </div>
-
-                    <!-- MATA KULIAH -->
-                    <div>
-                        <label class="block mb-3 font-semibold">
-                            Mata Kuliah
-                        </label>
-
-                        <div class="border border-gray-300 rounded-xl px-4 pt-3 pb-4">
-
-                            <div id="matkulContainer"
-                                 class="grid grid-cols-1 gap-3 mb-3">
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- KELAS -->
-                    <div class="mt-5">
-
-                        <label class="block mb-3 font-semibold">
-                            Pilih Kelas
-                        </label>
-
-                        <div class="border border-gray-300 rounded-xl px-4 pt-3 pb-4">
-
-                            <div id="kelasContainer"
-                                class="space-y-4">
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- BUTTON -->
-                    <button
-                        type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition"
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                        placeholder="Masukkan Password"
+                        class="w-full h-[56px]
+                               rounded-2xl
+                               border border-gray-200
+                               bg-[#f9fbff]
+                               px-5 pr-14
+                               text-[15px]
+                               focus:outline-none
+                               focus:border-blue-500
+                               focus:bg-white
+                               transition"
                     >
-                        Register
+
+                    <button
+                        type="button"
+                        onclick="togglePassword()"
+                        class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 transition"
+                    >
+
+                        <i id="eyeIcon" class="fa-regular fa-eye"></i>
+
                     </button>
 
-                </form>
+                </div>
 
             </div>
 
-        </div>
+            <!-- SEMESTER -->
+            <div>
+
+                <label class="block text-[15px] font-semibold mb-2 text-gray-700">
+                    Semester
+                </label>
+
+                <select
+                    id="semester"
+                    name="semester"
+                    onchange="updateKelas()"
+                    class="w-full h-[56px]
+                           rounded-2xl
+                           border border-gray-200
+                           bg-[#f9fbff]
+                           px-5
+                           text-[15px]
+                           text-gray-500
+                           focus:outline-none
+                           focus:border-blue-500
+                           focus:bg-white
+                           transition"
+                >
+
+                    <option value="">
+                        -- Pilih Semester --
+                    </option>
+
+                    <option value="2">Semester 2</option>
+                    <option value="4">Semester 4</option>
+                    <option value="6">Semester 6</option>
+                    <option value="8">Semester 8</option>
+
+                </select>
+
+            </div>
+
+            <!-- MATA KULIAH -->
+            <div>
+
+                <label class="block text-[15px] font-semibold mb-3 text-gray-700">
+                    Mata Kuliah
+                </label>
+
+                <div class="border border-gray-200 rounded-2xl bg-[#f9fbff] px-4 pt-4 pb-5 max-h-[320px] overflow-y-auto">
+
+                    <div id="matkulContainer"
+                         class="grid grid-cols-1 gap-3">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- KELAS -->
+            <div>
+
+                <label class="block text-[15px] font-semibold mb-3 text-gray-700">
+                    Pilih Kelas
+                </label>
+
+                <div class="border border-gray-200 rounded-2xl bg-[#f9fbff] px-4 pt-4 pb-5">
+
+                    <div id="kelasContainer"
+                         class="space-y-4">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+            <button
+                type="submit"
+                class="w-full h-[56px]
+                       rounded-2xl
+                       bg-gradient-to-r from-blue-600 to-blue-700
+                       hover:scale-[1.01]
+                       transition
+                       text-white
+                       text-[16px]
+                       font-semibold
+                       shadow-lg shadow-blue-200"
+            >
+
+                Register
+
+            </button>
+
+        </form>
 
     </div>
 
@@ -297,7 +310,7 @@ function updateKelas() {
             "KECERDASAN KOMPUTASIONAL",
             "METODOLOGI PENELITIAN",
             "NATURAL LANGUAGE PROCESSING",
-            "PENGOLAHAN SUARA",
+            "PENGOLAHAN SUARA"
         ];
     }
 
@@ -313,13 +326,14 @@ function updateKelas() {
         container.innerHTML += `
 
             <label class="
-                flex items-center gap-2
+                flex items-center gap-3
                 border border-gray-300
-                rounded-lg
-                px-3 py-2
+                rounded-xl
+                px-4 py-3
                 cursor-pointer
                 hover:bg-blue-50
                 text-sm
+                bg-white
             ">
 
                 <input
@@ -444,13 +458,11 @@ function updateKelasByMatkul() {
             kelas = ["A1"];
         }
 
-        
-
         let kelasHTML = `
 
-            <div class="border border-gray-300 rounded-xl p-4">
+            <div class="border border-gray-300 rounded-2xl p-4 bg-white">
 
-                <h3 class="font-semibold text-blue-600 mb-3">
+                <h3 class="font-semibold text-blue-600 mb-4">
                     ${matkul}
                 </h3>
 
@@ -464,11 +476,12 @@ function updateKelasByMatkul() {
                 <label class="
                     flex items-center gap-2
                     border border-gray-300
-                    rounded-lg
-                    px-3 py-2
+                    rounded-xl
+                    px-3 py-3
                     cursor-pointer
                     hover:bg-blue-50
                     text-sm
+                    bg-[#f9fbff]
                 ">
 
                     <input

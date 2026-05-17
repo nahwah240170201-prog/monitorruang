@@ -20,6 +20,7 @@ Route::get('/', function () {
         'jam' => now()->format('H:i'),
         'jadwal' => $jadwal,
     ]);
+
 })->name('dashboard');
 
 
@@ -46,6 +47,18 @@ Route::get('/register', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 
+
+/*
+|--------------------------------------------------------------------------
+| TENTANG
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/tentang', function () {
+    return view('tentang');
+})->name('tentang');
+
+
 /*
 |--------------------------------------------------------------------------
 | JADWAL
@@ -54,6 +67,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/jadwal', [JadwalController::class, 'index'])
     ->name('jadwal.index');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -71,20 +85,23 @@ Route::get('/dashboard-komting', function () {
 
 })->middleware('auth');
 
+
 /*
 |--------------------------------------------------------------------------
 | DAFTAR RUANGAN
 |--------------------------------------------------------------------------
 */
+
 Route::get('/daftar-ruangan', function () {
 
-    $ruangan = \App\Models\Jadwal::select('ruangan', 'status')
+    $ruangan = Jadwal::select('ruangan', 'status')
         ->distinct()
         ->get();
 
     return view('daftar-ruangan', compact('ruangan'));
 
 })->name('daftar.ruangan');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -103,3 +120,14 @@ Route::get('/ruangan', function () {
     ]);
 
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| TENTANG
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/tentang', function () {
+    return view('tentang');
+})->name('tentang');

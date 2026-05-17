@@ -83,7 +83,7 @@
             </a>
 
             <!-- TENTANG -->
-            <a href="#"
+            <a href=""
             class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition duration-200">
 
                 <i class="fa-solid fa-circle-info"></i>
