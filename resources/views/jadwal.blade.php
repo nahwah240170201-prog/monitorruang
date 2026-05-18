@@ -94,138 +94,112 @@
         <table class="w-full min-w-[950px]">
 
                 <!-- HEAD -->
-                <thead>
+<thead>
 
-                    <tr class="bg-gradient-to-r from-[#f8fbff] to-[#f5f7ff] border-b border-gray-200">
+    <tr class="bg-gradient-to-r from-[#f8fbff] to-[#f5f7ff] border-b border-gray-200">
 
-                        <th class="px-6 py-5 bg-[#f5f7fb] border-r border-gray-100
-           text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
-    Waktu
-</th>
+        <th class="px-6 py-5 bg-[#f5f7fb] border-r border-gray-100
+text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
+            Waktu
+        </th>
 
-                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                            Ruang A1
-                        </th>
+        @php
+            $daftarRuangan = $jadwal->pluck('ruangan')->unique();
+        @endphp
 
-                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                            Ruang A2
-                        </th>
+        @foreach($daftarRuangan as $ruangan)
 
-                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                            Ruang A3
-                        </th>
+            <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
+                {{ $ruangan }}
+            </th>
 
-                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                            Lab 1
-                        </th>
+        @endforeach
 
-                        <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                            Lab 2
-                        </th>
+    </tr>
 
-                    </tr>
-
-                </thead>
+</thead>
 
 
-                <!-- BODY -->
-                <tbody>
+<!-- BODY -->
+<tbody>
 
-                    @foreach($jadwal as $slot)
+    @php
+        $grouped = $jadwal->groupBy('waktu');
+    @endphp
 
-                    <tr class="border-b border-gray-100 hover:bg-[#fafcff] transition-all duration-200">
+    @foreach($grouped as $waktu => $items)
 
-                        <!-- JAM -->
-                         <td class="px-6 py-5 border-r border-gray-100 bg-[#fafbfc]">
+    <tr class="border-b border-gray-100 hover:bg-[#fafcff] transition-all duration-200">
 
-    <span class="text-[13px] font-semibold text-gray-600 tracking-wide">
-        {{ $slot['waktu'] }}
-    </span>
+        <!-- JAM -->
+        <td class="px-6 py-5 border-r border-gray-100 bg-[#fafbfc]">
 
-</td>
-                        
+            <span class="text-[13px] font-semibold text-gray-600 tracking-wide">
+                {{ $waktu }}
+            </span>
 
+        </td>
 
-                        <!-- KOLOM -->
-                        @foreach(['ruang_a1','ruang_a2','ruang_a3','lab_1','lab_2'] as $kolom)
+        <!-- KOLOM RUANG -->
+        @foreach($daftarRuangan as $ruangan)
 
-                        <td class="px-5 py-5 text-center align-middle">
+            @php
+                $item = $items->firstWhere('ruangan', $ruangan);
+            @endphp
 
-                            @if(!empty($slot[$kolom]))
+            <td class="px-5 py-5 text-center align-middle">
 
-                                    @php
-    $item = $slot[$kolom];
+                @if($item)
 
-    $colors = [
+                    <div class="h-[72px] flex flex-col justify-center
+                                rounded-xl border px-3 py-2 shadow-sm
+                                bg-red-50 border-red-200 text-red-700 shadow-red-100
+                                hover:scale-[1.03] transition-all duration-200">
 
-        'red' =>
-            'bg-red-50 border-red-200 text-red-700 shadow-red-100',
+                        <p class="text-[12px] font-semibold leading-tight">
+                            {{ $item->mata_kuliah }}
+                        </p>
 
-        'green' =>
-            'bg-green-50 border-green-200 text-green-700 shadow-green-100',
+                        <p class="text-[11px] mt-0.5 opacity-70">
+                            {{ $item->kelas }}
+                        </p>
 
-    ];
+                    </div>
 
-    $cls = $colors[$item['warna']] ?? '';
+                @else
 
-@endphp
+                    <!-- KOSONG -->
+                    <div class="h-[72px] flex flex-col items-center justify-center
+                                rounded-2xl border-2 border-dashed border-green-200
+                                bg-green-50">
 
+                        <div class="w-7 h-7 rounded-full bg-green-100
+                                    flex items-center justify-center mb-2">
 
-                               <div class="h-[72px] flex flex-col justify-center
-                                        rounded-xl border px-3 py-2 shadow-sm
-                                            hover:scale-[1.03] transition-all duration-200 {{ $cls }}">
+                            <i class="fa-solid fa-check text-green-600 text-[13px]"></i>
 
-                                    <p class="text-[12px] font-semibold leading-tight">
-                                        {{ $item['mata_kuliah'] }}
-                                    </p>
+                        </div>
 
-                                   <p class="text-[11px] mt-0.5 opacity-70">
-                                        {{ $item['kelas'] }}
-                                    </p>
+                        <p class="text-[10px] font-semibold text-green-700">
+                            Ruangan Kosong
+                        </p>
 
-                                </div>
+                    </div>
 
-                            @else
+                @endif
 
-                                <!-- KOSONG -->
-                                <div class="h-[72px] flex flex-col items-center justify-center
-                                            rounded-2xl border-2 border-dashed border-green-200
-                                            bg-green-50">
+            </td>
 
-                                    <div class="w-7 h-7 rounded-full bg-green-100
-                                                flex items-center justify-center mb-2">
+        @endforeach
 
-                                        <i class="fa-solid fa-check text-green-600 text-[13px]"></i>
+    </tr>
 
-                                    </div>
+    @endforeach
 
-                                    <p class="text-[10px] font-semibold text-green-700">
-                                        Ruangan Kosong
-                                    </p>
-
-                                </div>
-
-                            @endif
-
-                        </td>
-
-                        @endforeach
-
-                    </tr>
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
+</tbody>
 
     <!-- LEGEND -->
-    <div class="flex flex-wrap items-center gap-8 mt-7">
+    <div class="flex flex-wrap items-center gap-8 mt-7 px-6 pb-6">
 
         <div class="flex items-center gap-3">
 

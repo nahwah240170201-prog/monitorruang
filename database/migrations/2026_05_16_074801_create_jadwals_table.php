@@ -12,6 +12,8 @@ return new class extends Migration
 
             $table->id();
 
+            $table->string('hari');
+
             $table->string('waktu');
 
             $table->string('mata_kuliah');

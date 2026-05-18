@@ -32,7 +32,7 @@
             Form Booking
         </h2>
 
-        <form action="#" method="POST" class="space-y-6">
+        <form action="{{ route('booking.store') }}" method="POST" class="space-y-6">
 
             @csrf
 
