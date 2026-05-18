@@ -13,22 +13,26 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
 
-            $table->id();
+    $table->id();
 
-            $table->string('nama');
+    $table->string('nama');
 
-            $table->string('nim_nidn')->unique();
+    $table->string('nim')->unique();
 
-            $table->string('password');
+    $table->string('password');
 
-            $table->enum('role', ['dosen', 'komting']);
+    $table->string('role')->default('komting');
 
-            $table->string('kelas')->nullable();
+    $table->string('semester');
 
-            $table->rememberToken();
+    $table->text('mata_kuliah')->nullable();
 
-            $table->timestamps();
-        });
+    $table->string('kelas')->nullable();
+
+    $table->rememberToken();
+
+    $table->timestamps();
+});
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
