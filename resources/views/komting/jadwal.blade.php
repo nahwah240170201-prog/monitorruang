@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.komting')
 
 @section('content')
 
@@ -20,16 +20,38 @@
         </div>
 
         <!-- DATE -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600
-                    text-white px-6 py-3 rounded-2xl shadow-lg">
+        <div class="flex items-center gap-3">
 
-            <p class="text-[13px] opacity-80">
-                Jadwal Hari Ini
-            </p>
+            <a href="{{ route('jadwal.index', ['tanggal' => $prevDate]) }}"
+               class="w-11 h-11 rounded-2xl bg-white border border-gray-200
+                      flex items-center justify-center shadow-sm
+                      hover:bg-blue-50 hover:border-blue-300 transition">
 
-            <h2 class="font-semibold text-[16px]">
-                {{ now()->translatedFormat('l, d F Y') }}
-            </h2>
+                <i class="fa-solid fa-chevron-left text-[13px] text-gray-600"></i>
+
+            </a>
+
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600
+                        text-white px-6 py-3 rounded-2xl shadow-lg">
+
+                <p class="text-[13px] opacity-80">
+                    Jadwal Hari Ini
+                </p>
+
+                <h2 class="font-semibold text-[16px]">
+                    {{ $tanggalFormatted }}
+                </h2>
+
+            </div>
+
+            <a href="{{ route('jadwal.index', ['tanggal' => $nextDate]) }}"
+               class="w-11 h-11 rounded-2xl bg-white border border-gray-200
+                      flex items-center justify-center shadow-sm
+                      hover:bg-blue-50 hover:border-blue-300 transition">
+
+                <i class="fa-solid fa-chevron-right text-[13px] text-gray-600"></i>
+
+            </a>
 
         </div>
 
@@ -39,15 +61,24 @@
     <!-- HARI -->
     <div class="flex flex-wrap gap-3 mb-8">
 
-        @foreach(['Sen','Sel','Rab','Kam','Jum'] as $hari)
+        @foreach($hariList as $hari)
 
-            <div class="px-5 h-11 rounded-2xl flex items-center justify-center
-                        text-[14px] font-semibold
-                        bg-white border border-gray-200 text-gray-600">
+            <a href="{{ route('jadwal.index', ['tanggal' => $hari['date']]) }}"
+               @class([
+                    'px-5 h-11 rounded-2xl flex items-center justify-center
+                     text-[14px] font-semibold transition-all duration-200',
 
-                {{ $hari }}
+                    'bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105'
+                        => $hari['active'],
 
-            </div>
+                    'bg-white border border-gray-200 text-gray-600
+                     hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'
+                        => !$hari['active']
+               ])>
+
+                {{ $hari['label'] }}
+
+            </a>
 
         @endforeach
 
@@ -73,7 +104,22 @@ text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
         </th>
 
         @php
-            $daftarRuangan = $jadwal->pluck('ruangan')->unique();
+        $urutan = array(
+            'LAB INFORMATIKA 1' => 1,
+            'LAB INFORMATIKA 2' => 2,
+            'LAB INFORMATIKA 3' => 3,
+            'LAB INFORMATIKA 4' => 4,
+            'INF-RUANG KULIAH I' => 5,
+            'INF-RUANG KULIAH II' => 6,
+            'INF-RUANG KULIAH III' => 7,
+            'INF-RUANG KULIAH IV' => 8,
+            'INF-RUANG KULIAH V' => 9,
+        );
+        $daftarRuangan = $jadwal->pluck('ruangan')
+            ->map(fn($r) => strtoupper(trim($r)))
+             ->unique()
+             ->sortBy(fn($r) => $urutan[$r] ?? 99)
+             ->values();
         @endphp
 
         @foreach($daftarRuangan as $ruangan)

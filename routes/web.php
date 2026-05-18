@@ -17,20 +17,16 @@ Route::get('/', function () {
 
     $jadwal = Jadwal::where('hari', $hariIni)->get();
 
-    // total ruangan unik
     $totalRuangan = Jadwal::distinct('ruangan')->count('ruangan');
 
-    // ruang kosong
     $ruangKosong = Jadwal::where('status', 'Kosong')
         ->distinct('ruangan')
         ->count('ruangan');
 
-    // ruang digunakan
     $digunakan = Jadwal::where('status', 'Digunakan')
         ->distinct('ruangan')
         ->count('ruangan');
 
-    // list ruang kosong
     $listRuangKosong = Jadwal::where('status', 'Kosong')
         ->select('ruangan', 'status')
         ->distinct()
@@ -52,7 +48,6 @@ Route::get('/', function () {
 
 })->name('dashboard');
 
-
 /*
 |--------------------------------------------------------------------------
 | LOGIN
@@ -62,7 +57,6 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
-
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -87,19 +81,16 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', function () {
 
     auth()->logout();
-
     request()->session()->invalidate();
-
     request()->session()->regenerateToken();
 
     return redirect('/');
 
 })->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
-| JADWAL
+| JADWAL (USER)
 |--------------------------------------------------------------------------
 */
 
@@ -115,17 +106,29 @@ Route::get('/jadwal', function () {
 
     $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)->get();
 
-    // ambil semua ruangan unik dari database
-    $ruangan = \App\Models\Jadwal::select('ruangan')
-        ->distinct()
-        ->pluck('ruangan');
+    $urutan = [
+        'LAB INFORMATIKA 1' => 1,
+        'LAB INFORMATIKA 2' => 2,
+        'LAB INFORMATIKA 3' => 3,
+        'LAB INFORMATIKA 4' => 4,
+        'INF-RUANG KULIAH I' => 5,
+        'INF-RUANG KULIAH II' => 6,
+        'INF-RUANG KULIAH III' => 7,
+        'INF-RUANG KULIAH IV' => 8,
+        'INF-RUANG KULIAH V' => 9,
+    ];
 
-    // ambil semua waktu unik
+    $ruangan = \App\Models\Jadwal::all()
+        ->pluck('ruangan')
+        ->map(fn($r) => strtoupper(trim($r)))
+        ->unique()
+        ->sortBy(fn($r) => $urutan[$r] ?? 99)
+        ->values();
+
     $waktuList = \App\Models\Jadwal::select('waktu')
         ->distinct()
         ->pluck('waktu');
 
-    // hari navbar
     $hariList = [];
 
     for ($i = 0; $i < 5; $i++) {
@@ -142,28 +145,17 @@ Route::get('/jadwal', function () {
     return view('jadwal', [
 
         'jadwal' => $jadwal,
-
         'ruangan' => $ruangan,
-
         'waktuList' => $waktuList,
-
         'hariList' => $hariList,
-
         'tanggalFormatted' => $tanggal->translatedFormat('l, d F Y'),
-
         'prevDate' => $tanggal->copy()->subDay()->format('Y-m-d'),
-
         'nextDate' => $tanggal->copy()->addDay()->format('Y-m-d'),
 
     ]);
 
 })->name('jadwal.index');
 
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD KOMTING
-|--------------------------------------------------------------------------
-*/
 /*
 |--------------------------------------------------------------------------
 | DASHBOARD KOMTING
@@ -180,6 +172,11 @@ Route::get('/dashboard-komting', function () {
 
 })->middleware('auth')->name('dashboard.komting');
 
+/*
+|--------------------------------------------------------------------------
+| DAFTAR RUANGAN
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/daftar-ruangan', function () {
 
@@ -196,15 +193,75 @@ Route::get('/daftar-ruangan', function () {
 
 })->name('daftar.ruangan');
 
+/*
+|--------------------------------------------------------------------------
+| KOMTING JADWAL (FIXED - NO DUPLICATE ROUTE)
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/komting/jadwal', function () {
+
+    $tanggal = request('tanggal')
+        ? \Carbon\Carbon::parse(request('tanggal'))
+        : now();
+
+    $tanggal->locale('id');
+
+    $hariIndonesia = $tanggal->translatedFormat('l');
+
+    $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)->get();
+
+    $urutan = [
+        'LAB INFORMATIKA 1' => 1,
+        'LAB INFORMATIKA 2' => 2,
+        'LAB INFORMATIKA 3' => 3,
+        'LAB INFORMATIKA 4' => 4,
+        'INF-RUANG KULIAH I' => 5,
+        'INF-RUANG KULIAH II' => 6,
+        'INF-RUANG KULIAH III' => 7,
+        'INF-RUANG KULIAH IV' => 8,
+        'INF-RUANG KULIAH V' => 9,
+    ];
+
+    $ruangan = \App\Models\Jadwal::all()
+        ->pluck('ruangan')
+        ->map(fn($r) => strtoupper(trim($r)))
+        ->unique()
+        ->sortBy(fn($r) => $urutan[$r] ?? 99)
+        ->values();
+
+    $hariList = [];
+
+    for ($i = 0; $i < 5; $i++) {
+        $date = now()->startOfWeek()->addDays($i);
+
+        $hariList[] = [
+            'label' => $date->translatedFormat('D'),
+            'date' => $date->format('Y-m-d'),
+            'active' => $date->format('Y-m-d') == $tanggal->format('Y-m-d'),
+        ];
+    }
+
+    return view('komting.jadwal', [
+        'jadwal' => $jadwal,
+        'ruangan' => $ruangan,
+        'hariList' => $hariList,
+        'tanggalFormatted' => $tanggal->translatedFormat('l, d F Y'),
+        'prevDate' => $tanggal->copy()->subDay()->format('Y-m-d'),
+        'nextDate' => $tanggal->copy()->addDay()->format('Y-m-d'),
+    ]);
+
+})->name('komting.jadwal');
 
 /*
 |--------------------------------------------------------------------------
-| RUANGAN kosong
+| (LANJUTAN TETAP SAMA)
 |--------------------------------------------------------------------------
 */
+
 Route::get('/ruang-kosong', function () {
 
-    $ruanganKosong = \App\Models\Jadwal::where('status', 'Kosong')
+    $ruanganKosong = Jadwal::where('status', 'Kosong')
         ->select('ruangan', 'status')
         ->distinct()
         ->get();
@@ -212,30 +269,14 @@ Route::get('/ruang-kosong', function () {
     return view('ruang-kosong', compact('ruanganKosong'));
 
 })->name('ruang.kosong');
-/*
-|--------------------------------------------------------------------------
-| tentang
-|--------------------------------------------------------------------------
-*/
+
 Route::get('/tentang', function () {
-
     return view('tentang');
-
 })->name('tentang');
-/*
-|--------------------------------------------------------------------------
-| booking
-|--------------------------------------------------------------------------
-*/
+
 Route::get('/booking', function () {
     return view('komting.booking');
 })->name('booking.ruangan');
-
-/*
-|--------------------------------------------------------------------------
-| update
-|--------------------------------------------------------------------------
-*/
 
 Route::get('/update-status', function () {
 
@@ -244,15 +285,6 @@ Route::get('/update-status', function () {
     return view('komting.update-status', compact('jadwal'));
 
 })->name('update.status');
-
-Route::get('/komting/jadwal', function () {
-
-    $jadwal = Jadwal::all();
-
-    return view('komting.jadwal', compact('jadwal'));
-
-})->name('komting.jadwal');
-
 
 Route::get('/komting/ruangan', function () {
 
@@ -263,7 +295,6 @@ Route::get('/komting/ruangan', function () {
     return view('komting.ruangan', compact('ruangan'));
 
 })->name('komting.daftar.ruangan');
-
 
 Route::get('/komting/ruang-kosong', function () {
 
@@ -276,47 +307,23 @@ Route::get('/komting/ruang-kosong', function () {
 
 })->name('komting.ruang.kosong');
 
-/*
-|--------------------------------------------------------------------------
-| RIWAYAT UPDATE
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/riwayat-update', function () {
 
-    $riwayat = \App\Models\Jadwal::latest()->get();
+    $riwayat = Jadwal::latest()->get();
 
     return view('komting.riwayat-update', compact('riwayat'));
 
 })->name('riwayat.ruangan');
-/*
-|--------------------------------------------------------------------------
-| pdf
-|--------------------------------------------------------------------------
-*/
+
 use App\Http\Controllers\BookingController;
-Route::post('/booking',
-    [BookingController::class, 'store'])
+
+Route::post('/booking', [BookingController::class, 'store'])
     ->name('booking.store');
 
-
-
-
-
 Route::get('/surat-booking', function () {
-
     return view('komting.surat-booking');
-
 })->name('surat.booking');
 
-/*
-|--------------------------------------------------------------------------
-| kelas anda
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/kelas-anda', function () {
-
     return view('komting.kelas-anda');
-
 })->name('kelas.anda');

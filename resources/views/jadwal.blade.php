@@ -104,7 +104,22 @@ text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
         </th>
 
         @php
-            $daftarRuangan = $jadwal->pluck('ruangan')->unique();
+        $urutan = array(
+            'LAB INFORMATIKA 1' => 1,
+            'LAB INFORMATIKA 2' => 2,
+            'LAB INFORMATIKA 3' => 3,
+            'LAB INFORMATIKA 4' => 4,
+            'INF-RUANG KULIAH I' => 5,
+            'INF-RUANG KULIAH II' => 6,
+            'INF-RUANG KULIAH III' => 7,
+            'INF-RUANG KULIAH IV' => 8,
+            'INF-RUANG KULIAH V' => 9,
+        );
+        $daftarRuangan = $jadwal->pluck('ruangan')
+            ->map(fn($r) => strtoupper(trim($r)))
+             ->unique()
+             ->sortBy(fn($r) => $urutan[$r] ?? 99)
+             ->values();
         @endphp
 
         @foreach($daftarRuangan as $ruangan)

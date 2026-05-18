@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.komting')
 
 @section('content')
 
@@ -66,7 +66,7 @@
 
                                 @if($item->status == 'Digunakan')
 
-                                    <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-xl text-sm">
+                                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
                                         Digunakan
                                     </span>
 
