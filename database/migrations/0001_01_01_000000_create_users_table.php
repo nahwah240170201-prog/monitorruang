@@ -17,13 +17,17 @@ return new class extends Migration
 
             $table->string('nama');
 
-            $table->string('nim_nidn')->unique();
+            $table->string('nim')->unique();
 
             $table->string('password');
 
             $table->enum('role', ['dosen', 'komting']);
 
             $table->string('kelas')->nullable();
+
+            $table->integer('semester')->nullable();
+        
+            $table->json('mata_kuliah')->nullable();    
 
             $table->rememberToken();
 
