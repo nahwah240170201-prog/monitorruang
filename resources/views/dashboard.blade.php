@@ -7,13 +7,6 @@
     <!-- CONTENT -->
     <main class="flex-1 p-6">
 
-        <!-- TOPBAR -->
-        <div class="flex justify-between items-center mb-5">
-
-
-        </div>
-
-
         <!-- HERO -->
         <div class="bg-white rounded-3xl shadow-sm p-8 mb-6">
 
@@ -25,17 +18,15 @@
                         Selamat Datang!
                     </h1>
 
-                    <p class="text-gray-500 text-lg">
-                         <p class="text-gray-500 text-lg leading-relaxed">
-    Lihat informasi penggunaan ruangan dan laboratorium informatika secara realtime. <br>
-    Mahasiswa dapat memantau status ruangan, melihat jadwal kelas, <br>
-    dan mengetahui ketersediaan ruang yang kosong.
+                    <p class="text-gray-500 text-lg leading-relaxed">
+                        Lihat informasi penggunaan ruangan dan laboratorium informatika secara realtime. <br>
+                        Mahasiswa dapat memantau status ruangan, melihat jadwal kelas, <br>
+                        dan mengetahui ketersediaan ruang yang kosong.
 
-    <br><br>
+                        <br><br>
 
-    untuk melakukan booking ruangan atau membatalkan kelas, <br>
-    silakan register dan login sebagai komting.
-</p>
+                        Untuk melakukan booking ruangan atau membatalkan kelas, <br>
+                        silakan register dan login sebagai komting.
                     </p>
 
                 </div>
@@ -52,51 +43,50 @@
 
 
             <!-- CARD STATISTIK -->
-            <!-- CARD STATISTIK -->
-<div class="grid grid-cols-3 gap-5 mt-10">
+            <div class="grid grid-cols-3 gap-5 mt-10">
 
-    <!-- TOTAL RUANGAN -->
-    <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
+                <!-- TOTAL RUANGAN -->
+                <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
 
-        <p class="text-purple-600 mb-2 font-medium">
-            Total Ruangan
-        </p>
+                    <p class="text-purple-600 mb-2 font-medium">
+                        Total Ruangan
+                    </p>
 
-        <h2 class="text-5xl font-bold text-purple-600">
-            25
-        </h2>
+                    <h2 class="text-5xl font-bold text-purple-600">
+                        {{ $totalRuangan }}
+                    </h2>
 
-    </div>
-
-
-    <!-- RUANG KOSONG -->
-    <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
-
-        <p class="text-green-600 mb-2 font-medium">
-            Ruang Kosong
-        </p>
-
-        <h2 class="text-5xl font-bold text-green-600">
-            8
-        </h2>
-
-    </div>
+                </div>
 
 
-    <!-- DIGUNAKAN -->
-    <div class="bg-red-50 rounded-2xl p-6 border border-red-100">
+                <!-- RUANG KOSONG -->
+                <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
 
-        <p class="text-red-600 mb-2 font-medium">
-            Digunakan
-        </p>
+                    <p class="text-green-600 mb-2 font-medium">
+                        Ruang Kosong
+                    </p>
 
-        <h2 class="text-5xl font-bold text-red-600">
-            14
-        </h2>
+                    <h2 class="text-5xl font-bold text-green-600">
+                        {{ $ruangKosong }}
+                    </h2>
 
-    </div>
+                </div>
 
-</div>
+
+                <!-- DIGUNAKAN -->
+                <div class="bg-red-50 rounded-2xl p-6 border border-red-100">
+
+                    <p class="text-red-600 mb-2 font-medium">
+                        Digunakan
+                    </p>
+
+                    <h2 class="text-5xl font-bold text-red-600">
+                        {{ $digunakan }}
+                    </h2>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -115,11 +105,11 @@
                     </h2>
 
                     <a href="{{ route('jadwal.index') }}"
-   class="bg-blue-50 text-blue-600 px-5 py-2 rounded-xl hover:bg-blue-100 transition">
+                       class="bg-blue-50 text-blue-600 px-5 py-2 rounded-xl hover:bg-blue-100 transition">
 
-    Lihat Jadwal
+                        Lihat Jadwal
 
-</a>
+                    </a>
 
                 </div>
 
@@ -163,23 +153,23 @@
                                     {{ $item->ruangan }}
                                 </td>
 
-                               <td>
+                                <td>
 
-    @if($item->status == 'Digunakan')
+                                    @if($item->status == 'Digunakan')
 
-        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm font-medium">
-            Digunakan
-        </span>
+                                        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm font-medium">
+                                            Digunakan
+                                        </span>
 
-    @elseif($item->status == 'Kosong')
+                                    @elseif($item->status == 'Kosong')
 
-        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm font-medium">
-            Kosong
-        </span>
+                                        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm font-medium">
+                                            Kosong
+                                        </span>
 
-    @endif
+                                    @endif
 
-</td>
+                                </td>
 
                             </tr>
 
@@ -206,65 +196,51 @@
             <!-- SIDE CONTENT -->
             <div class="space-y-6">
 
-               <!-- RUANG KOSONG -->
-<a href="{{ route('ruang.kosong') }}" class="block">
+                <!-- RUANG KOSONG -->
+                <a href="{{ route('ruang.kosong') }}" class="block">
 
-<div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition">
+                    <div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition">
 
-    <h2 class="text-2xl font-bold mb-5 text-gray-800">
-        Ruang Kosong
-    </h2>
-
-
-    <div class="space-y-4">
-
-        <div class="flex justify-between border-b pb-3">
-
-            <span>
-                LAB INFORMATIKA 1
-            </span>
-
-            <span class="text-green-500 font-medium">
-                Kosong
-            </span>
-
-        </div>
+                        <h2 class="text-2xl font-bold mb-5 text-gray-800">
+                            Ruang Kosong
+                        </h2>
 
 
-        <div class="flex justify-between border-b pb-3">
+                        <div class="space-y-4">
 
-            <span>
-                INF-RUANG KULIAH III
-            </span>
+                            @forelse($listRuangKosong as $ruang)
 
-            <span class="text-green-500 font-medium">
-                Kosong
-            </span>
+                                <div class="flex justify-between border-b pb-3">
 
-        </div>
+                                    <span>
+                                        {{ $ruang->ruangan }}
+                                    </span>
 
+                                    <span class="text-green-500 font-medium">
+                                        {{ $ruang->status }}
+                                    </span>
 
-        <div class="flex justify-between">
+                                </div>
 
-            <span>
-                LAB INFORMATIKA 2
-            </span>
+                            @empty
 
-            <span class="text-green-500 font-medium">
-                Kosong
-            </span>
+                                <div class="text-gray-400">
+                                    Tidak ada ruang kosong
+                                </div>
+
+                            @endforelse
 
                         </div>
 
                     </div>
 
-                </div>
+                </a>
 
 
 
                 <!-- TENTANG -->
                 <a href="{{ route('tentang') }}" class="block">
-                    
+
                     <div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition">
 
                         <h2 class="text-2xl font-bold mb-4">
@@ -275,7 +251,9 @@
                             MonitorRuang Informatika merupakan aplikasi yang digunakan untuk memantau penggunaan ruang kelas dan laboratorium informatika secara realtime.
                         </p>
 
-                </div>
+                    </div>
+
+                </a>
 
             </div>
 

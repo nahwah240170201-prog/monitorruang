@@ -17,10 +17,37 @@ Route::get('/', function () {
 
     $jadwal = Jadwal::where('hari', $hariIni)->get();
 
+    // total ruangan unik
+    $totalRuangan = Jadwal::distinct('ruangan')->count('ruangan');
+
+    // ruang kosong
+    $ruangKosong = Jadwal::where('status', 'Kosong')
+        ->distinct('ruangan')
+        ->count('ruangan');
+
+    // ruang digunakan
+    $digunakan = Jadwal::where('status', 'Digunakan')
+        ->distinct('ruangan')
+        ->count('ruangan');
+
+    // list ruang kosong
+    $listRuangKosong = Jadwal::where('status', 'Kosong')
+        ->select('ruangan', 'status')
+        ->distinct()
+        ->take(3)
+        ->get();
+
     return view('dashboard', [
+
         'tanggal' => now()->translatedFormat('l, d F Y'),
         'jam' => now()->format('H:i'),
         'jadwal' => $jadwal,
+
+        'totalRuangan' => $totalRuangan,
+        'ruangKosong' => $ruangKosong,
+        'digunakan' => $digunakan,
+        'listRuangKosong' => $listRuangKosong,
+
     ]);
 
 })->name('dashboard');
@@ -156,9 +183,14 @@ Route::get('/dashboard-komting', function () {
 
 Route::get('/daftar-ruangan', function () {
 
-    $ruangan = Jadwal::select('ruangan', 'status')
-        ->distinct()
-        ->get();
+    $ruangan = Jadwal::select(
+        'ruangan',
+        'mata_kuliah',
+        'kelas',
+        'status'
+    )
+    ->distinct()
+    ->get();
 
     return view('ruangan', compact('ruangan'));
 
