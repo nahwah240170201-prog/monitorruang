@@ -88,7 +88,7 @@
 
                 <input
                     type="text"
-                    name="nim_nidn"
+                    name="nim"
                     required
                     placeholder="Masukkan NIM"
                     class="w-full h-[56px]

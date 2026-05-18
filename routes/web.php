@@ -35,6 +35,8 @@ Route::get('/login', function () {
 })->name('login');
 
 
+Route::post('/login', [AuthController::class, 'login']);
+
 /*
 |--------------------------------------------------------------------------
 | REGISTER
@@ -65,16 +67,20 @@ Route::get('/jadwal', [JadwalController::class, 'index'])
 | DASHBOARD KOMTING
 |--------------------------------------------------------------------------
 */
-
 Route::get('/dashboard-komting', function () {
 
-    $jadwal = Jadwal::latest()->get();
+    // 🔥 CEK LOGIN + ROLE
+    if (!auth()->check() || auth()->user()->role !== 'komting') {
+        return redirect('/login');
+    }
+
+    $jadwal = \App\Models\Jadwal::latest()->get();
 
     return view('dashboard-komting', [
         'jadwal' => $jadwal
     ]);
 
-})->middleware('auth');
+})->middleware('auth')->name('dashboard.komting');
 
 
 /*

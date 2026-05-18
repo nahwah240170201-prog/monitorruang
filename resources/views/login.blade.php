@@ -42,7 +42,8 @@
         </div>
 
         <!-- FORM -->
-        <form class="space-y-6">
+        <form action="/login" method="POST" class="space-y-6">
+        @csrf
 
             <!-- NIM -->
             <div>
@@ -53,6 +54,7 @@
 
                 <input
                     type="text"
+                    name="nim"
                     required
                     placeholder="Masukkan NIM"
                     class="w-full h-[56px]
@@ -81,6 +83,7 @@
                     <input
                         id="password"
                         type="password"
+                        name="password"
                         placeholder="Masukkan password"
                         class="w-full h-[56px]
                                rounded-2xl
