@@ -114,15 +114,6 @@ Route::get('/daftar-ruangan', function () {
         ->get();
 
     return view('ruangan', compact('ruangan'));
-/*
-|--------------------------------------------------------------------------
-| TENTANG
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/tentang', function () {
-    return view('tentang');
-})->name('tentang');
 
 })->name('daftar.ruangan');
 
@@ -144,7 +135,7 @@ Route::get('/ruang-kosong', function () {
 })->name('ruang.kosong');
 /*
 |--------------------------------------------------------------------------
-| tantang
+| tentang
 |--------------------------------------------------------------------------
 */
 Route::get('/tentang', function () {
