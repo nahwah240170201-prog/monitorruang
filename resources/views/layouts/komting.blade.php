@@ -122,14 +122,18 @@ class="{{ request()->routeIs('komting.ruang.kosong')
 
 
     <!-- KELAS ANDA -->
-    <a href="#"
-    class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition duration-200">
+    <<!-- KELAS ANDA -->
+<a href="{{ route('kelas.anda') }}"
+class="{{ request()->routeIs('kelas.anda')
+    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-        <i class="fa-solid fa-users"></i>
+    <i class="fa-solid fa-users"></i>
 
-        <span>Kelas Anda</span>
+    <span>Kelas Anda</span>
 
-    </a>
+</a>
 
 
 

@@ -276,3 +276,15 @@ Route::get('/surat-booking', function () {
     return view('komting.surat-booking');
 
 })->name('surat.booking');
+
+/*
+|--------------------------------------------------------------------------
+| kelas anda
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/kelas-anda', function () {
+
+    return view('komting.kelas-anda');
+
+})->name('kelas.anda');
