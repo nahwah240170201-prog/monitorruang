@@ -64,10 +64,14 @@
 <div class="grid grid-cols-3 gap-6 mb-7">
 
     <!-- KELAS -->
-    <div class="bg-white rounded-3xl p-6 shadow-sm">
+<div>
+
+<a href="{{ route('kelas.anda') }}" class="block">
+
+    <div class="bg-white rounded-3xl p-6 shadow-sm hover:shadow-md transition cursor-pointer">
 
         <p class="text-gray-400 text-sm mb-2">
-            Kelas Anda
+            Kelas
         </p>
 
         <h2 class="text-3xl font-bold text-blue-600">
@@ -75,6 +79,10 @@
         </h2>
 
     </div>
+
+</a>
+
+</div>
 
     <!-- SEMESTER -->
     <div class="bg-white rounded-3xl p-6 shadow-sm">
@@ -259,7 +267,7 @@
         <div class="bg-white rounded-3xl shadow-sm p-6">
 
             <h2 class="text-2xl font-bold mb-5 text-gray-800">
-                Kelas Anda
+                Kelas
             </h2>
 
             <div class="space-y-3">
