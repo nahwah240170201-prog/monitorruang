@@ -44,7 +44,8 @@
                 </label>
 
                 <select
-                    id="jenisBooking"
+    name="jenis_booking"
+    id="jenisBooking"
                     onchange="toggleBookingFields()"
                     class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
@@ -91,16 +92,18 @@
                     </label>
 
                     <select
-                        class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+    name="mata_kuliah"
+    class="w-full h-[56px]
+                         rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                        <option>
+                        <option value="pilih mata kuliah">
                             Pilih Mata Kuliah
                         </option>
 
                         @foreach(json_decode(Auth::user()->mata_kuliah ?? '[]') as $matkul)
 
-                            <option>
-                                {{ $matkul }}
+                            <option value="{{ $matkul }}">
+                                     {{ $matkul }}
                             </option>
 
                         @endforeach
@@ -122,6 +125,7 @@
 
                     <input
                         type="text"
+                        name="kelas"
                         value="{{ Auth::user()->kelas }}"
                         readonly
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-gray-100 px-5">
@@ -143,6 +147,7 @@
 
                 <input
                     type="text"
+                    name="alasan"
                     placeholder="Contoh: Seminar, rapat organisasi, workshop, dll"
                     class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
@@ -160,13 +165,15 @@
                 </label>
 
                 <select
-                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+                    name="hari"
+                    class="w-full h-[56px] 
+                    rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                    <option>Senin</option>
-                    <option>Selasa</option>
-                    <option>Rabu</option>
-                    <option>Kamis</option>
-                    <option>Jumat</option>
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
 
                 </select>
 
@@ -187,6 +194,7 @@
 
                     <input
                         type="time"
+                        name="jam_mulai"
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -203,6 +211,7 @@
 
                     <input
                         type="time"
+                         name="jam_selesai"
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -221,11 +230,21 @@
                 </label>
 
                 <select
-                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+                    name="ruangan"
+                    class="w-full h-[56px]
+                     rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                    <option>LAB INFORMATIKA 1</option>
-                    <option>LAB INFORMATIKA 2</option>
-                    <option>RUANG KULIAH III</option>
+                    <option value="LAB INFORMATIKA 1">
+    LAB INFORMATIKA 1
+</option>
+
+<option value="LAB INFORMATIKA 2">
+    LAB INFORMATIKA 2
+</option>
+
+<option value="RUANG KULIAH III">
+    RUANG KULIAH III
+</option>
 
                 </select>
 
@@ -244,6 +263,7 @@
 
                 <textarea
                     rows="4"
+                    name="catatan"
                     placeholder="Tambahkan catatan booking..."
                     class="w-full rounded-2xl border border-gray-200 bg-[#f9fbff] p-5 focus:outline-none focus:border-blue-500"></textarea>
 
