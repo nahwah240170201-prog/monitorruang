@@ -209,49 +209,53 @@
             <!-- SIDE CONTENT -->
             <div class="space-y-6">
 
-                <!-- RUANG KOSONG -->
-                <div class="bg-white rounded-3xl shadow-sm p-6">
+               <!-- RUANG KOSONG -->
+<a href="{{ route('ruang.kosong') }}" class="block">
 
-                    <div class="flex justify-between items-center mb-5">
+<div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition">
 
-                        <h2 class="text-2xl font-bold">
-                            Ruang Kosong
-                        </h2>
-
-                    </div>
+    <h2 class="text-2xl font-bold mb-5 text-gray-800">
+        Ruang Kosong
+    </h2>
 
 
-                    <div class="space-y-4">
+    <div class="space-y-4">
 
-                        <div class="flex justify-between border-b pb-3">
+        <div class="flex justify-between border-b pb-3">
 
-                            <span>Lab 1</span>
+            <span>
+                LAB INFORMATIKA 1
+            </span>
 
-                            <span class="text-gray-500">
-                                Gedung B Lt.2
-                            </span>
+            <span class="text-green-500 font-medium">
+                Kosong
+            </span>
 
-                        </div>
-
-
-                        <div class="flex justify-between border-b pb-3">
-
-                            <span>Ruang A1</span>
-
-                            <span class="text-gray-500">
-                                Gedung A Lt.1
-                            </span>
-
-                        </div>
+        </div>
 
 
-                        <div class="flex justify-between border-b pb-3">
+        <div class="flex justify-between border-b pb-3">
 
-                            <span>Lab 2</span>
+            <span>
+                INF-RUANG KULIAH III
+            </span>
 
-                            <span class="text-gray-500">
-                                Gedung B Lt.2
-                            </span>
+            <span class="text-green-500 font-medium">
+                Kosong
+            </span>
+
+        </div>
+
+
+        <div class="flex justify-between">
+
+            <span>
+                LAB INFORMATIKA 2
+            </span>
+
+            <span class="text-green-500 font-medium">
+                Kosong
+            </span>
 
                         </div>
 
@@ -261,16 +265,18 @@
 
 
 
-                <!-- INFORMASI -->
-                <div class="bg-white rounded-3xl shadow-sm p-6">
+                <!-- TENTANG -->
+                <a href="{{ route('tentang') }}" class="block">
+                    
+                    <div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition">
 
-                    <h2 class="text-2xl font-bold mb-4">
-                        Informasi
-                    </h2>
+                        <h2 class="text-2xl font-bold mb-4">
+                            Tentang
+                        </h2>
 
-                    <p class="text-gray-500 leading-relaxed">
-                        Untuk perubahan status ruangan, hubungi dosen atau komting kelas terkait.
-                    </p>
+                        <p class="text-gray-500 leading-relaxed">
+                            MonitorRuang Informatika merupakan aplikasi yang digunakan untuk memantau penggunaan ruang kelas dan laboratorium informatika secara realtime.
+                        </p>
 
                 </div>
 
