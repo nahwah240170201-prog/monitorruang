@@ -41,6 +41,11 @@
 
         </div>
 
+        @if(session('success'))
+            <div class="bg-green-100 text-green-600 p-3 rounded-2xl mb-5">
+            {{ session('success') }}
+         </div>
+        @endif
         <!-- FORM -->
         <form action="/login" method="POST" class="space-y-6">
         @csrf
