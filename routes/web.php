@@ -261,14 +261,32 @@ Route::get('/komting/jadwal', function () {
 
 Route::get('/ruang-kosong', function () {
 
-    $ruanganKosong = Jadwal::where('status', 'Kosong')
-        ->select('ruangan', 'status')
+    $hariIni = now()->locale('id')->translatedFormat('l');
+
+    // semua ruangan unik
+    $semuaRuangan = Jadwal::select('ruangan')
         ->distinct()
-        ->get();
+        ->pluck('ruangan');
+
+    // ruangan yang ADA jadwal hari ini
+    $ruanganTerpakai = Jadwal::where('hari', $hariIni)
+        ->pluck('ruangan')
+        ->unique();
+
+    // selisih = kosong
+    $ruanganKosong = $semuaRuangan
+        ->diff($ruanganTerpakai)
+        ->values()
+        ->map(function ($r) {
+            return (object)[
+                'ruangan' => $r
+            ];
+        });
 
     return view('ruang-kosong', compact('ruanganKosong'));
 
 })->name('ruang.kosong');
+
 /*
 |--------------------------------------------------------------------------
 | TENTANG
