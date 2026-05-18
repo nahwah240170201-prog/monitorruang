@@ -49,7 +49,23 @@ Route::get('/register', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 
+/*
+|--------------------------------------------------------------------------
+| LOGOUT
+|--------------------------------------------------------------------------
+*/
 
+Route::post('/logout', function () {
+
+    auth()->logout();
+
+    request()->session()->invalidate();
+
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+
+})->name('logout');
 
 
 /*
@@ -67,49 +83,26 @@ Route::get('/jadwal', [JadwalController::class, 'index'])
 | DASHBOARD KOMTING
 |--------------------------------------------------------------------------
 */
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD KOMTING
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/dashboard-komting', function () {
 
-    // 🔥 CEK LOGIN + ROLE
-    if (!auth()->check() || auth()->user()->role !== 'komting') {
-        return redirect('/login');
-    }
+    $jadwal = Jadwal::latest()->get();
 
-    $jadwal = \App\Models\Jadwal::latest()->get();
-
-    return view('dashboard-komting', [
+    return view('komting.dashboard-komting', [
         'jadwal' => $jadwal
     ]);
 
 })->middleware('auth')->name('dashboard.komting');
 
 
-/*
-|--------------------------------------------------------------------------
-| DAFTAR RUANGAN
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/daftar-ruangan', function () {
 
     $ruangan = Jadwal::select('ruangan', 'status')
-        ->distinct()
-        ->get();
-
-    return view('daftar-ruangan', compact('ruangan'));
-
-})->name('daftar.ruangan');
-
-
-/*
-|--------------------------------------------------------------------------
-| RUANGAN
-|--------------------------------------------------------------------------
-*/
-
-
-Route::get('/daftar-ruangan', function () {
-
-    $ruangan = \App\Models\Jadwal::select('ruangan', 'status')
         ->distinct()
         ->get();
 
@@ -143,3 +136,56 @@ Route::get('/tentang', function () {
     return view('tentang');
 
 })->name('tentang');
+/*
+|--------------------------------------------------------------------------
+| booking
+|--------------------------------------------------------------------------
+*/
+Route::get('/booking', function () {
+    return view('komting.booking');
+})->name('booking.ruangan');
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/update-status', function () {
+
+    $jadwal = Jadwal::all();
+
+    return view('komting.update-status', compact('jadwal'));
+
+})->name('update.status');
+
+Route::get('/komting/jadwal', function () {
+
+    $jadwal = Jadwal::all();
+
+    return view('komting.jadwal', compact('jadwal'));
+
+})->name('komting.jadwal');
+
+
+Route::get('/komting/ruangan', function () {
+
+    $ruangan = Jadwal::select('ruangan', 'status')
+        ->distinct()
+        ->get();
+
+    return view('komting.ruangan', compact('ruangan'));
+
+})->name('komting.daftar.ruangan');
+
+
+Route::get('/komting/ruang-kosong', function () {
+
+    $ruanganKosong = Jadwal::where('status', 'Kosong')
+        ->select('ruangan', 'status')
+        ->distinct()
+        ->get();
+
+    return view('komting.ruang-kosong', compact('ruanganKosong'));
+
+})->name('komting.ruang.kosong');
