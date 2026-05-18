@@ -37,7 +37,7 @@
 
         </div>
 
-        <!-- MENU -->
+       
         <!-- MENU -->
 <nav class="space-y-2">
 
@@ -121,8 +121,8 @@ class="{{ request()->routeIs('komting.ruang.kosong')
 
 
 
+    
     <!-- KELAS ANDA -->
-    <<!-- KELAS ANDA -->
 <a href="{{ route('kelas.anda') }}"
 class="{{ request()->routeIs('kelas.anda')
     ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
@@ -139,7 +139,6 @@ class="{{ request()->routeIs('kelas.anda')
 
 
 
-    <!-- BOOKING -->
    <!-- BOOKING -->
 <a href="{{ route('booking.ruangan') }}"
 class="{{ request()->routeIs('booking.ruangan')
@@ -157,7 +156,7 @@ class="{{ request()->routeIs('booking.ruangan')
 
 
 
-    <!-- UPDATE STATUS -->
+  
    <!-- UPDATE STATUS -->
 <a href="{{ route('update.status') }}"
 class="{{ request()->routeIs('update.status')
@@ -209,10 +208,7 @@ class="{{ request()->routeIs('riwayat.ruangan')
                     <span class="text-[15px] text-gray-600">Digunakan</span>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <span class="text-[15px] text-gray-600">Dibatalkan</span>
-                </div>
+    
 
             </div>
 

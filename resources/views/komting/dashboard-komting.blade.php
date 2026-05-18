@@ -46,9 +46,9 @@
 
         <div>
 
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/1048/1048941.png"
-                class="w-56 opacity-90">
+        <img
+    src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png"
+    class="w-70 opacity-90">
 
         </div>
 
@@ -259,7 +259,7 @@
         <div class="bg-white rounded-3xl shadow-sm p-6">
 
             <h2 class="text-2xl font-bold mb-5 text-gray-800">
-                Mata Kuliah Anda
+                Kelas Anda
             </h2>
 
             <div class="space-y-3">
@@ -282,8 +282,11 @@
 
 
 
+        
         <!-- RIWAYAT -->
-        <div class="bg-white rounded-3xl shadow-sm p-6" id="riwayat">
+<a href="{{ route('riwayat.ruangan') }}" class="block">
+
+<div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition" id="riwayat">
 
             <h2 class="text-2xl font-bold mb-5 text-gray-800">
                 Riwayat Update
