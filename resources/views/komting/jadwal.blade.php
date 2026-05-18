@@ -22,7 +22,7 @@
         <!-- DATE -->
         <div class="flex items-center gap-3">
 
-            <a href="{{ route('jadwal.index', ['tanggal' => $prevDate]) }}"
+            <a href="{{ route('komting.jadwal', ['tanggal' => $prevDate]) }}"
                class="w-11 h-11 rounded-2xl bg-white border border-gray-200
                       flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
@@ -44,7 +44,7 @@
 
             </div>
 
-            <a href="{{ route('jadwal.index', ['tanggal' => $nextDate]) }}"
+            <a href="{{ route('komting.jadwal', ['tanggal' => $nextDate]) }}"
                class="w-11 h-11 rounded-2xl bg-white border border-gray-200
                       flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
@@ -63,7 +63,7 @@
 
         @foreach($hariList as $hari)
 
-            <a href="{{ route('jadwal.index', ['tanggal' => $hari['date']]) }}"
+            <a href="{{ route('komting.jadwal', ['tanggal' => $hari['date']]) }}"
                @class([
                     'px-5 h-11 rounded-2xl flex items-center justify-center
                      text-[14px] font-semibold transition-all duration-200',
