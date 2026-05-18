@@ -89,6 +89,7 @@
                         id="password"
                         type="password"
                         name="password"
+                        required
                         placeholder="Masukkan password"
                         class="w-full h-[56px]
                                rounded-2xl
