@@ -26,7 +26,16 @@
                     </h1>
 
                     <p class="text-gray-500 text-lg">
-                        Pantau penggunaan ruang dan laboratorium informatika secara realtime.
+                         <p class="text-gray-500 text-lg leading-relaxed">
+    Lihat informasi penggunaan ruangan dan laboratorium informatika secara realtime. <br>
+    Mahasiswa dapat memantau status ruangan, melihat jadwal kelas, <br>
+    dan mengetahui ketersediaan ruang yang kosong.
+
+    <br><br>
+
+    untuk melakukan booking ruangan atau membatalkan kelas, <br>
+    silakan register dan login sebagai komting.
+</p>
                     </p>
 
                 </div>
@@ -43,60 +52,51 @@
 
 
             <!-- CARD STATISTIK -->
-            <div class="grid grid-cols-4 gap-5 mt-10">
+            <!-- CARD STATISTIK -->
+<div class="grid grid-cols-3 gap-5 mt-10">
 
-                <div class="bg-blue-50 rounded-2xl p-6">
+    <!-- TOTAL RUANGAN -->
+    <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
 
-                    <p class="text-gray-500 mb-2">
-                        Total Ruangan
-                    </p>
+        <p class="text-purple-600 mb-2 font-medium">
+            Total Ruangan
+        </p>
 
-                    <h2 class="text-5xl font-bold text-blue-600">
-                        25
-                    </h2>
+        <h2 class="text-5xl font-bold text-purple-600">
+            25
+        </h2>
 
-                </div>
-
-
-                <div class="bg-green-50 rounded-2xl p-6">
-
-                    <p class="text-green-600 mb-2">
-                        Ruang Kosong
-                    </p>
-
-                    <h2 class="text-5xl font-bold text-green-600">
-                        8
-                    </h2>
-
-                </div>
+    </div>
 
 
-                <div class="bg-indigo-50 rounded-2xl p-6">
+    <!-- RUANG KOSONG -->
+    <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
 
-                    <p class="text-indigo-600 mb-2">
-                        Digunakan
-                    </p>
+        <p class="text-green-600 mb-2 font-medium">
+            Ruang Kosong
+        </p>
 
-                    <h2 class="text-5xl font-bold text-indigo-600">
-                        14
-                    </h2>
+        <h2 class="text-5xl font-bold text-green-600">
+            8
+        </h2>
 
-                </div>
+    </div>
 
 
-                <div class="bg-red-50 rounded-2xl p-6">
+    <!-- DIGUNAKAN -->
+    <div class="bg-red-50 rounded-2xl p-6 border border-red-100">
 
-                    <p class="text-red-600 mb-2">
-                        Dibatalkan
-                    </p>
+        <p class="text-red-600 mb-2 font-medium">
+            Digunakan
+        </p>
 
-                    <h2 class="text-5xl font-bold text-red-600">
-                        3
-                    </h2>
+        <h2 class="text-5xl font-bold text-red-600">
+            14
+        </h2>
 
-                </div>
+    </div>
 
-            </div>
+</div>
 
         </div>
 
@@ -114,9 +114,12 @@
                         Jadwal Hari Ini
                     </h2>
 
-                    <button class="bg-blue-50 text-blue-600 px-5 py-2 rounded-xl">
-                        Lihat Semua Jadwal
-                    </button>
+                    <a href="{{ route('jadwal.index') }}"
+   class="bg-blue-50 text-blue-600 px-5 py-2 rounded-xl hover:bg-blue-100 transition">
+
+    Lihat Jadwal
+
+</a>
 
                 </div>
 
@@ -160,29 +163,23 @@
                                     {{ $item->ruangan }}
                                 </td>
 
-                                <td>
+                               <td>
 
-                                    @if($item->status == 'Digunakan')
+    @if($item->status == 'Digunakan')
 
-                                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-xl text-sm">
-                                            Digunakan
-                                        </span>
+        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm font-medium">
+            Digunakan
+        </span>
 
-                                    @elseif($item->status == 'Kosong')
+    @elseif($item->status == 'Kosong')
 
-                                        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm">
-                                            Kosong
-                                        </span>
+        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm font-medium">
+            Kosong
+        </span>
 
-                                    @else
+    @endif
 
-                                        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
-                                            Dibatalkan
-                                        </span>
-
-                                    @endif
-
-                                </td>
+</td>
 
                             </tr>
 
