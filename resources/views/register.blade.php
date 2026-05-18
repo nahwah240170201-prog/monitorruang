@@ -156,6 +156,7 @@
                 <select
                     id="semester"
                     name="semester"
+                    required
                     onchange="updateKelas()"
                     class="w-full h-[56px]
                            rounded-2xl
