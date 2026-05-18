@@ -195,7 +195,7 @@ Route::get('/daftar-ruangan', function () {
 
 /*
 |--------------------------------------------------------------------------
-| KOMTING JADWAL (FIXED - NO DUPLICATE ROUTE)
+| KOMTING JADWAL 
 |--------------------------------------------------------------------------
 */
 
@@ -255,7 +255,7 @@ Route::get('/komting/jadwal', function () {
 
 /*
 |--------------------------------------------------------------------------
-| (LANJUTAN TETAP SAMA)
+| RUANGAN KOSONG
 |--------------------------------------------------------------------------
 */
 
@@ -269,15 +269,27 @@ Route::get('/ruang-kosong', function () {
     return view('ruang-kosong', compact('ruanganKosong'));
 
 })->name('ruang.kosong');
-
+/*
+|--------------------------------------------------------------------------
+| TENTANG
+|--------------------------------------------------------------------------
+*/
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
-
+/*
+|--------------------------------------------------------------------------
+| BOOKING
+|--------------------------------------------------------------------------
+*/
 Route::get('/booking', function () {
     return view('komting.booking');
 })->name('booking.ruangan');
-
+/*
+|--------------------------------------------------------------------------
+| UPDATE 
+|--------------------------------------------------------------------------
+*/
 Route::get('/update-status', function () {
 
     $jadwal = Jadwal::all();
@@ -306,7 +318,11 @@ Route::get('/komting/ruang-kosong', function () {
     return view('komting.ruang-kosong', compact('ruanganKosong'));
 
 })->name('komting.ruang.kosong');
-
+/*
+|--------------------------------------------------------------------------
+| RIWAYAT UPDATE
+|--------------------------------------------------------------------------
+*/
 Route::get('/riwayat-update', function () {
 
     $riwayat = Jadwal::latest()->get();
@@ -314,7 +330,11 @@ Route::get('/riwayat-update', function () {
     return view('komting.riwayat-update', compact('riwayat'));
 
 })->name('riwayat.ruangan');
-
+/*
+|--------------------------------------------------------------------------
+| pdf
+|--------------------------------------------------------------------------
+*/
 use App\Http\Controllers\BookingController;
 
 Route::post('/booking', [BookingController::class, 'store'])
@@ -323,7 +343,11 @@ Route::post('/booking', [BookingController::class, 'store'])
 Route::get('/surat-booking', function () {
     return view('komting.surat-booking');
 })->name('surat.booking');
-
+/*
+|--------------------------------------------------------------------------
+| kelas anda
+|--------------------------------------------------------------------------
+*/
 Route::get('/kelas-anda', function () {
     return view('komting.kelas-anda');
 })->name('kelas.anda');
