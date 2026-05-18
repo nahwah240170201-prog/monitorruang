@@ -17,9 +17,6 @@ return new class extends Migration
 
     $table->string('nama');
 
-
-            $table->string('nim')->unique();
-
     $table->string('nim')->unique();
 
 
@@ -27,18 +24,13 @@ return new class extends Migration
 
     $table->string('role')->default('komting');
 
-    $table->string('semester');
-
-
             $table->integer('semester')->nullable();
         
             $table->json('mata_kuliah')->nullable();    
 
             $table->rememberToken();
-    $table->text('mata_kuliah')->nullable();
     $table->string('kelas')->nullable();
 
-    $table->rememberToken();
 
     $table->timestamps();
 });

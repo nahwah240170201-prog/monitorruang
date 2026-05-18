@@ -172,14 +172,17 @@ class="{{ request()->routeIs('update.status')
 
 
     <!-- RIWAYAT -->
-    <a href="#riwayat"
-    class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition duration-200">
+<a href="{{ route('riwayat.ruangan') }}"
+class="{{ request()->routeIs('riwayat.ruangan')
+    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+    <i class="fa-solid fa-clock-rotate-left"></i>
 
-        <span>Riwayat Update</span>
+    <span>Riwayat Update</span>
 
-    </a>
+</a>
 
 </nav>
 

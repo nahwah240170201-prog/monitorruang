@@ -257,3 +257,17 @@ Route::post('/booking',
 Route::get('/booking/{id}/pdf',
     [BookingController::class, 'downloadPdf'])
     ->name('booking.pdf');
+
+/*
+|--------------------------------------------------------------------------
+| RIWAYAT UPDATE
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/riwayat-update', function () {
+
+    $riwayat = \App\Models\Jadwal::latest()->get();
+
+    return view('komting.riwayat-update', compact('riwayat'));
+
+})->name('riwayat.ruangan');
