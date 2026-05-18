@@ -351,3 +351,24 @@ Route::get('/surat-booking', function () {
 Route::get('/kelas-anda', function () {
     return view('komting.kelas-anda');
 })->name('kelas.anda');
+/*
+|--------------------------------------------------------------------------
+| komting ruangan
+|--------------------------------------------------------------------------
+*/
+Route::get('/komting/ruangan', function () {
+
+    $ruangan = Jadwal::select(
+        'ruangan',
+        'mata_kuliah',
+        'kelas',
+        'status'
+    )
+    ->orderBy('ruangan')
+    ->orderBy('mata_kuliah')
+    ->orderBy('kelas')
+    ->get();
+
+    return view('komting.ruangan', compact('ruangan'));
+
+})->name('komting.daftar.ruangan');
