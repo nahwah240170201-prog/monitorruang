@@ -39,7 +39,9 @@ class BookingController extends Controller
 
 
 
-        return redirect()->route('surat.booking');
+        return redirect()
+    ->route('surat.booking')
+    ->with('success', 'Data booking berhasil disimpan!');
 
     }
 

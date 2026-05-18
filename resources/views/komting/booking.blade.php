@@ -2,6 +2,16 @@
 
 @section('content')
 
+@if(session('success'))
+
+<div class="mb-5 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl">
+
+    {{ session('success') }}
+
+</div>
+
+@endif
+
 <!-- HEADER -->
 <div class="flex justify-between items-center mb-7">
 
@@ -46,6 +56,7 @@
                 <select
     name="jenis_booking"
     id="jenisBooking"
+    required
                     onchange="toggleBookingFields()"
                     class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
@@ -63,10 +74,6 @@
 
                     <option value="rapat">
                         Rapat
-                    </option>
-
-                    <option value="workshop">
-                        Workshop
                     </option>
 
                     <option value="lainnya">
@@ -93,7 +100,9 @@
 
                     <select
     name="mata_kuliah"
+    required
     class="w-full h-[56px]
+
                          rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                         <option value="pilih mata kuliah">
@@ -126,6 +135,7 @@
                     <input
                         type="text"
                         name="kelas"
+                        required
                         value="{{ Auth::user()->kelas }}"
                         readonly
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-gray-100 px-5">
@@ -148,6 +158,7 @@
                 <input
                     type="text"
                     name="alasan"
+                    required
                     placeholder="Contoh: Seminar, rapat organisasi, workshop, dll"
                     class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
@@ -158,26 +169,30 @@
 
 
             <!-- HARI -->
-            <div>
+             <div>
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Hari
-                </label>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Hari
+        </label>
 
-                <select
-                    name="hari"
-                    class="w-full h-[56px] 
-                    rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+        <select
+            name="hari"
+            required
+            class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                    <option value="Senin">Senin</option>
-                    <option value="Selasa">Selasa</option>
-                    <option value="Rabu">Rabu</option>
-                    <option value="Kamis">Kamis</option>
-                    <option value="Jumat">Jumat</option>
+            <option value="">
+                Pilih Hari
+            </option>
 
-                </select>
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
 
-            </div>
+        </select>
+
+    </div>
 
 
 
@@ -195,6 +210,7 @@
                     <input
                         type="time"
                         name="jam_mulai"
+                        required
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -212,6 +228,7 @@
                     <input
                         type="time"
                          name="jam_selesai"
+                         required
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -223,32 +240,36 @@
 
 
             <!-- RUANGAN -->
-            <div>
+             <div>
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Pilih Ruangan
-                </label>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Pilih Ruangan
+        </label>
 
-                <select
-                    name="ruangan"
-                    class="w-full h-[56px]
-                     rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+        <select
+            name="ruangan"
+            required
+            class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                    <option value="LAB INFORMATIKA 1">
-    LAB INFORMATIKA 1
-</option>
+            <option value="">
+                Pilih Ruangan
+            </option>
 
-<option value="LAB INFORMATIKA 2">
-    LAB INFORMATIKA 2
-</option>
+            <option value="LAB INFORMATIKA 1">
+                LAB INFORMATIKA 1
+            </option>
 
-<option value="RUANG KULIAH III">
-    RUANG KULIAH III
-</option>
+            <option value="LAB INFORMATIKA 2">
+                LAB INFORMATIKA 2
+            </option>
 
-                </select>
+            <option value="RUANG KULIAH III">
+                RUANG KULIAH III
+            </option>
 
-            </div>
+        </select>
+
+    </div>
 
 
 
@@ -371,24 +392,57 @@ function toggleBookingFields() {
     const fieldAlasan =
         document.getElementById('fieldAlasan');
 
+    const mataKuliah =
+        document.querySelector('[name="mata_kuliah"]');
+
+    const kelas =
+        document.querySelector('[name="kelas"]');
+
+    const alasan =
+        document.querySelector('[name="alasan"]');
 
 
 
 
+
+    // SEMBUNYIKAN SEMUA
+    fieldPergantian.classList.add('hidden');
+    fieldAlasan.classList.add('hidden');
+
+
+
+
+
+    // HAPUS REQUIRED DULU
+    mataKuliah.required = false;
+    kelas.required = false;
+    alasan.required = false;
+
+
+
+
+
+    // JIKA PERGANTIAN
     if (jenis === 'pergantian') {
 
         fieldPergantian.classList.remove('hidden');
-        fieldAlasan.classList.add('hidden');
 
-    } else if (jenis !== '') {
+        mataKuliah.required = true;
+        kelas.required = true;
 
-        fieldPergantian.classList.add('hidden');
+    }
+
+
+
+
+
+
+    // JIKA LAINNYA
+    else if (jenis === 'lainnya') {
+
         fieldAlasan.classList.remove('hidden');
 
-    } else {
-
-        fieldPergantian.classList.add('hidden');
-        fieldAlasan.classList.add('hidden');
+        alasan.required = true;
 
     }
 

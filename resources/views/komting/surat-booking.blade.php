@@ -2,6 +2,16 @@
 
 @section('content')
 
+@if(session('success'))
+
+<div class="mb-5 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl">
+
+    {{ session('success') }}
+
+</div>
+
+@endif
+
 <div class="bg-white rounded-3xl p-5 shadow-sm">
 
     <div class="flex justify-between items-center mb-5">
