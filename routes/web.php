@@ -243,20 +243,6 @@ Route::get('/komting/ruang-kosong', function () {
     return view('komting.ruang-kosong', compact('ruanganKosong'));
 
 })->name('komting.ruang.kosong');
-/*
-|--------------------------------------------------------------------------
-| pdf
-|--------------------------------------------------------------------------
-*/
-use App\Http\Controllers\BookingController;
-
-Route::post('/booking',
-    [BookingController::class, 'store'])
-    ->name('booking.store');
-
-Route::get('/booking/{id}/pdf',
-    [BookingController::class, 'downloadPdf'])
-    ->name('booking.pdf');
 
 /*
 |--------------------------------------------------------------------------
@@ -271,3 +257,22 @@ Route::get('/riwayat-update', function () {
     return view('komting.riwayat-update', compact('riwayat'));
 
 })->name('riwayat.ruangan');
+/*
+|--------------------------------------------------------------------------
+| pdf
+|--------------------------------------------------------------------------
+*/
+use App\Http\Controllers\BookingController;
+Route::post('/booking',
+    [BookingController::class, 'store'])
+    ->name('booking.store');
+
+
+
+
+
+Route::get('/surat-booking', function () {
+
+    return view('komting.surat-booking');
+
+})->name('surat.booking');
