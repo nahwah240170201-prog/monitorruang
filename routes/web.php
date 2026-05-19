@@ -417,31 +417,26 @@ Route::get('/komting/ruangan', function () {
 
 /*
 |--------------------------------------------------------------------------
-| DASHBOARD ADMIN
+| ADMIN MENU
 |--------------------------------------------------------------------------
 */
 
-Route::get('/dashboard-admin', function () {
+Route::get('/admin/komting', function () {
+    return view('admin.komting');
+})->name('admin.komting');
 
-    $jadwal = \App\Models\Jadwal::latest()->take(10)->get();
-    $riwayat = \App\Models\Booking::latest()->take(5)->get();
+Route::get('/admin/ruangan', function () {
+    return view('admin.ruangan');
+})->name('admin.ruangan');
 
-    $totalRuangan = \App\Models\Jadwal::distinct('ruangan')->count('ruangan');
-    $digunakan = \App\Models\Jadwal::where('status', 'Digunakan')->count();
-    $kosong = \App\Models\Jadwal::where('status', 'Kosong')->count();
+Route::get('/admin/jadwal', function () {
+    return view('admin.jadwal');
+})->name('admin.jadwal');
 
-    $totalBooking = \App\Models\Booking::count();
+Route::get('/admin/semester', function () {
+    return view('admin.semester');
+})->name('admin.semester');
 
-    $latestUpdate = \App\Models\Booking::latest()->first()?->updated_at?->diffForHumans();
-
-    return view('admin.dashboard-admin', compact(
-        'jadwal',
-        'riwayat',
-        'totalRuangan',
-        'digunakan',
-        'kosong',
-        'totalBooking',
-        'latestUpdate'
-    ));
-
-})->middleware('auth')->name('dashboard.admin');
+Route::get('/admin/riwayat', function () {
+    return view('admin.riwayat');
+})->name('admin.riwayat');
