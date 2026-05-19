@@ -300,33 +300,67 @@
         Riwayat Penggunaan
     </h2>
 
-    <div class="space-y-5">
+    <div class="space-y-3">
+
+        <!-- HEADER MINI TABLE -->
+        <div class="grid grid-cols-5 text-xs font-semibold text-gray-500 border-b pb-2">
+            <div>Ruangan</div>
+            <div>Detail</div>
+            <div>Jadwal</div>
+            <div>Status</div>
+            <div>Waktu</div>
+        </div>
 
         @forelse($riwayat->take(2) as $item)
 
-            <div class="border-l-4 
-                {{ $item->status == 'Digunakan' ? 'border-blue-500' : 'border-red-500' }} 
-                pl-4">
+        <div class="grid grid-cols-5 text-sm text-gray-700 py-2 border-b hover:bg-gray-50 transition">
 
-                <p class="font-semibold text-gray-700">
-                    {{ $item->ruangan }}
-                </p>
+            <!-- RUANGAN -->
+            <div class="font-semibold">
+                {{ $item->ruangan }}
+            </div>
 
-                <p class="text-sm text-gray-500">
-                    Status diubah menjadi {{ $item->status }}
-                </p>
+            <!-- DETAIL -->
+            <div class="text-gray-500">
 
-                <p class="text-xs text-gray-400 mt-1">
-                    {{ $item->updated_at->diffForHumans() }}
-                </p>
+                @if($item->jenis_booking == 'pergantian')
+                    {{ $item->mata_kuliah }} - {{ $item->kelas }}
+                @else
+                    {{ $item->alasan }}
+                @endif
 
             </div>
 
+            <!-- JADWAL -->
+            <div class="text-gray-500">
+                {{ $item->hari }}<br>
+                <span class="text-xs">
+                    {{ $item->jam_mulai }} - {{ $item->jam_selesai }}
+                </span>
+            </div>
+
+            <!-- STATUS -->
+            <div>
+                <span class="px-2 py-1 rounded-lg text-xs font-semibold
+                    {{ $item->status == 'Digunakan'
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'bg-red-100 text-red-600' }}">
+                    {{ $item->status }}
+                </span>
+            </div>
+
+            <!-- WAKTU -->
+            <div class="text-gray-400 text-xs">
+                {{ $item->updated_at->diffForHumans() }}
+            </div>
+
+        </div>
+
         @empty
 
-            <p class="text-sm text-gray-400">
-                Belum ada riwayat
-            </p>
+        <div class="text-sm text-gray-400 py-4">
+            Belum ada riwayat
+        </div>
 
         @endforelse
 
