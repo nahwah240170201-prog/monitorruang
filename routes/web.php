@@ -487,11 +487,11 @@ Route::get('/admin-komting', function () {
 Route::get('/admin-ruangan', function () {
 
     $ruangan = Jadwal::select(
+        'id',
         'ruangan',
         'kelas',
         'status'
     )
-    ->distinct()
     ->get();
 
     return view('admin.data-ruangan', compact('ruangan'));
@@ -564,3 +564,63 @@ Route::get('/admin-jadwal/delete/{id}', function ($id) {
     return back()->with('success', 'Jadwal berhasil dihapus');
 
 })->name('admin.jadwal.delete');
+
+/*
+|--------------------------------------------------------------------------
+| UPDATE RUANGAN
+|--------------------------------------------------------------------------
+*/
+
+Route::put('/admin-ruangan/update/{id}', function (Request $request, $id) {
+
+    $ruangan = Jadwal::find($id);
+
+    $ruangan->update([
+
+        'ruangan' => $request->ruangan,
+        'kelas' => $request->kelas,
+        'status' => $request->status,
+
+    ]);
+
+    return back()->with('success', 'Data berhasil diupdate');
+
+})->name('admin.ruangan.update');
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| DELETE RUANGAN
+|--------------------------------------------------------------------------
+*/
+
+Route::delete('/admin-ruangan/delete/{id}', function ($id) {
+
+    Jadwal::find($id)?->delete();
+
+    return back()->with('success', 'Data berhasil dihapus');
+
+})->name('admin.ruangan.delete');
+
+/*
+|--------------------------------------------------------------------------
+| STORE RUANGAN
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/admin-ruangan/store', function (Request $request) {
+
+    Jadwal::create([
+
+        'ruangan' => $request->ruangan,
+        'kelas' => $request->kelas,
+        'status' => $request->status,
+
+    ]);
+
+    return back()->with('success', 'Data berhasil ditambahkan');
+
+})->name('admin.ruangan.store');

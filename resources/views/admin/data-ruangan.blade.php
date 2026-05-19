@@ -10,7 +10,7 @@
         <div>
 
             <h1 class="text-4xl font-bold text-gray-800">
-                Manajemen Ruangan
+                Data Ruangan
             </h1>
 
             <p class="text-gray-500 mt-2">
@@ -18,10 +18,6 @@
             </p>
 
         </div>
-
-
-
-
 
         <!-- SEARCH + BUTTON -->
         <div class="flex items-center gap-4">
@@ -137,7 +133,12 @@
 
                                 <!-- EDIT -->
                                 <button
-                                    onclick="openEditModal()"
+                                    onclick="openEditModal(
+                                        '{{ $item->id }}',
+                                        '{{ $item->ruangan }}',
+                                        '{{ $item->kelas }}',
+                                        '{{ $item->status }}'
+                                    )"
                                     class="w-10 h-10 rounded-xl bg-yellow-50 text-yellow-600 hover:bg-yellow-100 transition">
 
                                     <i class="fa-solid fa-pen"></i>
@@ -149,13 +150,22 @@
 
 
                                 <!-- DELETE -->
-                                <button
-                                    onclick="openDeleteModal()"
-                                    class="w-10 h-10 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition">
+                                <form action="{{ route('admin.ruangan.delete', $item->id) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Apakah anda yakin ingin menghapus data ini?')">
 
-                                    <i class="fa-solid fa-trash"></i>
+                                    @csrf
+                                    @method('DELETE')
 
-                                </button>
+                                    <button
+                                        type="submit"
+                                        class="w-10 h-10 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </form>
 
                             </div>
 
@@ -211,10 +221,6 @@
 
                 </div>
 
-
-
-
-
                 <!-- CLOSE -->
                 <button onclick="closeModal()"
                         class="w-11 h-11 rounded-xl bg-gray-100 hover:bg-red-100 hover:text-red-600 transition">
@@ -230,7 +236,7 @@
 
 
             <!-- FORM -->
-            <form action="#"
+            <form action="{{ route('admin.ruangan.store') }}"
                   method="POST"
                   class="space-y-6">
 
@@ -309,7 +315,7 @@
                         onclick="closeModal()"
                         class="flex-1 h-[54px] rounded-2xl bg-gray-100 hover:bg-gray-200 transition font-semibold text-gray-700">
 
-                        Cancel
+                        Batal
 
                     </button>
 
@@ -319,6 +325,7 @@
 
                     <button
                         type="submit"
+                        onclick="return confirm('Apakah anda yakin ingin menambahkan data ini?')"
                         class="flex-1 h-[54px] rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-lg shadow-blue-200">
 
                         Simpan Data
@@ -328,68 +335,6 @@
                 </div>
 
             </form>
-
-        </div>
-
-    </div>
-
-
-
-
-
-    <!-- MODAL DELETE -->
-    <div id="modalDelete"
-         class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
-
-        <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
-
-            <div class="text-center">
-
-                <div class="w-20 h-20 mx-auto rounded-full bg-red-100 flex items-center justify-center mb-5">
-
-                    <i class="fa-solid fa-trash text-red-600 text-3xl"></i>
-
-                </div>
-
-                <h2 class="text-2xl font-bold text-gray-800">
-                    Hapus Data?
-                </h2>
-
-                <p class="text-gray-500 mt-3">
-                    Apakah anda yakin ingin menghapus data ruangan ini?
-                </p>
-
-            </div>
-
-
-
-
-
-            <!-- BUTTON -->
-            <div class="flex gap-4 mt-8">
-
-                <!-- CANCEL -->
-                <button
-                    onclick="closeDeleteModal()"
-                    class="flex-1 h-[52px] rounded-2xl bg-gray-100 hover:bg-gray-200 transition font-semibold text-gray-700">
-
-                    Cancel
-
-                </button>
-
-
-
-
-
-                <!-- DELETE -->
-                <button
-                    class="flex-1 h-[52px] rounded-2xl bg-red-600 hover:bg-red-700 transition text-white font-semibold">
-
-                    Ya, Hapus
-
-                </button>
-
-            </div>
 
         </div>
 
@@ -420,10 +365,6 @@
 
                 </div>
 
-
-
-
-
                 <!-- CLOSE -->
                 <button onclick="closeEditModal()"
                         class="w-11 h-11 rounded-xl bg-gray-100 hover:bg-red-100 hover:text-red-600 transition">
@@ -439,7 +380,12 @@
 
 
             <!-- FORM -->
-            <form class="space-y-6">
+            <form id="editForm"
+                  method="POST"
+                  class="space-y-6">
+
+                @csrf
+                @method('PUT')
 
                 <!-- RUANGAN -->
                 <div>
@@ -450,7 +396,8 @@
 
                     <input
                         type="text"
-                        value="LAB INFORMATIKA 1"
+                        name="ruangan"
+                        id="editRuangan"
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -468,7 +415,8 @@
 
                     <input
                         type="text"
-                        value="TI-1A"
+                        name="kelas"
+                        id="editKelas"
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
                 </div>
@@ -485,13 +433,15 @@
                     </label>
 
                     <select
+                        name="status"
+                        id="editStatus"
                         class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
 
-                        <option>
+                        <option value="Kosong">
                             Kosong
                         </option>
 
-                        <option selected>
+                        <option value="Digunakan">
                             Digunakan
                         </option>
 
@@ -506,7 +456,6 @@
                 <!-- BUTTON -->
                 <div class="flex gap-4 pt-3">
 
-                    <!-- CANCEL -->
                     <button
                         type="button"
                         onclick="closeEditModal()"
@@ -520,11 +469,10 @@
 
 
 
-                    <!-- UPDATE -->
                     <button
-                        type="button"
-                        onclick="confirmUpdate()"
-                        class="flex-1 h-[54px] rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-lg shadow-blue-200">
+                        type="submit"
+                        onclick="return confirm('Apakah anda yakin ingin update data ini?')"
+                        class="flex-1 h-[54px] rounded-2xl bg-yellow-500 hover:bg-yellow-600 transition text-white font-semibold shadow-lg shadow-yellow-200">
 
                         Update Data
 
@@ -560,33 +508,14 @@ function closeModal() {
         .classList.remove('flex');
 }
 
+function openEditModal(id, ruangan, kelas, status) {
 
+    document.getElementById('editRuangan').value = ruangan;
+    document.getElementById('editKelas').value = kelas;
+    document.getElementById('editStatus').value = status;
 
-
-
-function openDeleteModal() {
-
-    document.getElementById('modalDelete')
-        .classList.remove('hidden');
-
-    document.getElementById('modalDelete')
-        .classList.add('flex');
-}
-
-function closeDeleteModal() {
-
-    document.getElementById('modalDelete')
-        .classList.add('hidden');
-
-    document.getElementById('modalDelete')
-        .classList.remove('flex');
-}
-
-
-
-
-
-function openEditModal() {
+    document.getElementById('editForm').action =
+        `/admin-ruangan/update/${id}`;
 
     document.getElementById('modalEdit')
         .classList.remove('hidden');
@@ -602,15 +531,6 @@ function closeEditModal() {
 
     document.getElementById('modalEdit')
         .classList.remove('flex');
-}
-
-
-
-
-
-function confirmUpdate() {
-
-    alert('Apakah anda yakin untuk update data?');
 }
 
 </script>
