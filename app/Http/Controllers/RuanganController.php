@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Ruangan;
 use Carbon\Carbon;
 
 class RuanganController extends Controller
@@ -25,6 +26,6 @@ class RuanganController extends Controller
             return $item;
         });
 
-        return view('ruangan', compact('ruangan'));
+        return view('admin.data-ruangan', compact('ruangan'));
     }
 }

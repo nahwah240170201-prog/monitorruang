@@ -485,7 +485,17 @@ Route::get('/admin-komting', function () {
 })->name('admin.komting');
 
 Route::get('/admin-ruangan', function () {
-    return view('admin.data-ruangan');
+
+    $ruangan = Jadwal::select(
+        'ruangan',
+        'kelas',
+        'status'
+    )
+    ->distinct()
+    ->get();
+
+    return view('admin.data-ruangan', compact('ruangan'));
+
 })->name('admin.ruangan');
 
 
