@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\MataKuliah;
+use App\Models\Jadwal;
+use App\Models\Ruangan;
+use Carbon\Carbon;
+
 
 class RuanganController extends Controller
 {
@@ -13,6 +18,6 @@ class RuanganController extends Controller
             ->orderBy('kelas')
             ->get();
 
-        return view('ruangan', compact('ruangan'));
+        return view('admin.data-ruangan', compact('ruangan'));
     }
 }

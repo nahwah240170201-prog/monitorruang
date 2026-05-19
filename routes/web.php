@@ -485,18 +485,27 @@ Route::get('/admin-komting', function () {
 })->name('admin.komting');
 
 Route::get('/admin-ruangan', function () {
-    return view('admin.data-ruangan');
+
+    $ruangan = Jadwal::select(
+        'ruangan',
+        'kelas',
+        'status'
+    )
+    ->distinct()
+    ->get();
+
+    return view('admin.data-ruangan', compact('ruangan'));
+
 })->name('admin.ruangan');
 
-Route::get('/admin-jadwal', function () {
-    return view('admin.data-jadwal');
-})->name('admin.jadwal');
 
 Route::get('/admin-semester', function () {
     return view('admin.semester');
 })->name('admin.semester');
 
-
+Route::get('/admin-matkul', function () {
+    return view('admin.matkul');
+})->name('admin.matkul');
 
 Route::get('/admin-riwayat', function () {
 
