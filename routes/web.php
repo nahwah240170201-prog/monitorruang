@@ -170,11 +170,10 @@ Route::get('/jadwal', function () {
 
 Route::get('/dashboard-komting', function () {
 
-    $jadwal = Jadwal::latest()->get();
+    $jadwal = \App\Models\Jadwal::latest()->get();
+    $riwayat = \App\Models\Booking::latest()->take(5)->get();
 
-    return view('komting.dashboard-komting', [
-        'jadwal' => $jadwal
-    ]);
+    return view('komting.dashboard-komting', compact('jadwal', 'riwayat'));
 
 })->middleware('auth')->name('dashboard.komting');
 

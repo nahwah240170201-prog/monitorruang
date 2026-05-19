@@ -71,7 +71,7 @@
     <div class="bg-white rounded-3xl p-6 shadow-sm hover:shadow-md transition cursor-pointer">
 
         <p class="text-gray-400 text-sm mb-2">
-            Kelas
+            Kelas anda
         </p>
 
         <h2 class="text-3xl font-bold text-blue-600">
@@ -267,7 +267,7 @@
         <div class="bg-white rounded-3xl shadow-sm p-6">
 
             <h2 class="text-2xl font-bold mb-5 text-gray-800">
-                Kelas
+                Kelas Anda
             </h2>
 
             <div class="space-y-3">
@@ -291,48 +291,50 @@
 
 
         
-        <!-- RIWAYAT -->
+<!-- RIWAYAT -->
 <a href="{{ route('riwayat.ruangan') }}" class="block">
 
 <div class="bg-white rounded-3xl shadow-sm p-6 hover:shadow-md transition" id="riwayat">
 
-            <h2 class="text-2xl font-bold mb-5 text-gray-800">
-                Riwayat Update
-            </h2>
+    <h2 class="text-2xl font-bold mb-5 text-gray-800">
+        Riwayat Penggunaan
+    </h2>
 
+    <div class="space-y-5">
 
-            <div class="space-y-5">
+        @forelse($riwayat->take(2) as $item)
 
-                <div class="border-l-4 border-blue-500 pl-4">
+            <div class="border-l-4 
+                {{ $item->status == 'Digunakan' ? 'border-blue-500' : 'border-red-500' }} 
+                pl-4">
 
-                    <p class="font-semibold text-gray-700">
-                        BIG DATA - A1
-                    </p>
+                <p class="font-semibold text-gray-700">
+                    {{ $item->ruangan }}
+                </p>
 
-                    <p class="text-sm text-gray-500">
-                        Status diubah menjadi Digunakan
-                    </p>
+                <p class="text-sm text-gray-500">
+                    Status diubah menjadi {{ $item->status }}
+                </p>
 
-                    <p class="text-xs text-gray-400 mt-1">
-                        10 menit lalu
-                    </p>
+                <p class="text-xs text-gray-400 mt-1">
+                    {{ $item->updated_at->diffForHumans() }}
+                </p>
 
-                </div>
+            </div>
 
+        @empty
 
-                <div class="border-l-4 border-red-500 pl-4">
+            <p class="text-sm text-gray-400">
+                Belum ada riwayat
+            </p>
 
-                    <p class="font-semibold text-gray-700">
-                        NLP - A2
-                    </p>
+        @endforelse
 
-                    <p class="text-sm text-gray-500">
-                        Status diubah menjadi Dibatalkan
-                    </p>
+    </div>
 
-                    <p class="text-xs text-gray-400 mt-1">
-                        1 jam lalu
-                    </p>
+</div>
+
+</a>
 
                 </div>
 
