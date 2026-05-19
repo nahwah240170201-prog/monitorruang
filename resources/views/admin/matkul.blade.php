@@ -24,12 +24,14 @@
 
 
         <!-- BUTTON -->
-        <button
-            class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 h-[52px] rounded-2xl font-semibold shadow-lg shadow-blue-200">
+       <!-- BUTTON -->
+<button
+    onclick="openModal()"
+    class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 h-[52px] rounded-2xl font-semibold shadow-lg shadow-blue-200">
 
-            + Tambah Data
+    + Tambah Data
 
-        </button>
+</button>
 
     </div>
 
@@ -163,7 +165,226 @@
         </div>
 
     </div>
+    <!-- MODAL -->
+<div id="modalTambah"
+     class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+
+    <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl">
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-center mb-7">
+
+            <div>
+
+                <h2 class="text-3xl font-bold text-gray-800">
+                    Tambah Mata Kuliah
+                </h2>
+
+                <p class="text-gray-500 mt-1">
+                    Tambahkan data mata kuliah dan dosen pengampu
+                </p>
+
+            </div>
+
+
+
+
+
+            <!-- CLOSE -->
+            <button onclick="closeModal()"
+                    class="w-11 h-11 rounded-xl bg-gray-100 hover:bg-red-100 hover:text-red-600 transition">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+
+
+        <!-- FORM -->
+        <form class="space-y-6">
+
+            <!-- SEMESTER -->
+            <div>
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Semester
+                </label>
+
+                <select
+                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+
+                    <option>
+                        Pilih Semester
+                    </option>
+
+                    <option>
+                        Semester 2
+                    </option>
+
+                    <option>
+                        Semester 4
+                    </option>
+
+                    <option>
+                        Semester 6
+                    </option>
+
+                    <option>
+                        Semester 8
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+
+
+            <!-- KELAS -->
+            <div>
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Kelas
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Contoh: A1"
+                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+
+            </div>
+
+
+
+
+
+            <!-- MATA KULIAH -->
+            <div>
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Mata Kuliah
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Masukkan mata kuliah"
+                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+
+            </div>
+
+
+
+
+
+            <!-- DOSEN -->
+            <div>
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Nama Dosen
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Masukkan nama dosen"
+                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+
+            </div>
+
+
+
+
+
+            <!-- SKS -->
+            <div>
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    SKS
+                </label>
+
+                <select
+                    class="w-full h-[56px] rounded-2xl border border-gray-200 bg-[#f9fbff] px-5 focus:outline-none focus:border-blue-500">
+
+                    <option>
+                        Pilih SKS
+                    </option>
+
+                    <option>
+                        2 SKS
+                    </option>
+
+                    <option>
+                        3 SKS
+                    </option>
+
+                    <option>
+                        4 SKS
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+
+
+            <!-- BUTTON -->
+            <div class="flex gap-4 pt-3">
+
+                <button
+                    type="button"
+                    onclick="closeModal()"
+                    class="flex-1 h-[54px] rounded-2xl bg-gray-100 hover:bg-gray-200 transition font-semibold text-gray-700">
+
+                    Batal
+
+                </button>
+
+
+
+
+
+                <button
+                    type="submit"
+                    class="flex-1 h-[54px] rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-lg shadow-blue-200">
+
+                    Simpan Data
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
+</div>
+<script>
+
+function openModal() {
+
+    document.getElementById('modalTambah')
+        .classList.remove('hidden');
+
+    document.getElementById('modalTambah')
+        .classList.add('flex');
+}
+
+function closeModal() {
+
+    document.getElementById('modalTambah')
+        .classList.add('hidden');
+
+    document.getElementById('modalTambah')
+        .classList.remove('flex');
+}
+
+</script>
 @endsection
