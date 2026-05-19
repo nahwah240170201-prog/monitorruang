@@ -16,7 +16,7 @@
 <div class="flex">
 
     <!-- SIDEBAR -->
-    <aside class="fixed left-0 top-0 h-screen w-[255px] bg-white px-5 py-6 border-r border-gray-100">
+   <aside class="fixed left-0 top-0 h-screen w-[220px] bg-white px-4 py-6 border-r border-gray-100">
 
         <!-- LOGO -->
         <div class="flex items-center gap-3 mb-12">
@@ -183,7 +183,7 @@ class="{{ request()->routeIs('riwayat.ruangan')
 
     <i class="fa-solid fa-clock-rotate-left"></i>
 
-    <span>Riwayat Update</span>
+    <span>Riwayat Penggunaan    </span>
 
 </a>
 
@@ -204,7 +204,7 @@ class="{{ request()->routeIs('riwayat.ruangan')
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <span class="text-[15px] text-gray-600">Digunakan</span>
                 </div>
 
@@ -250,7 +250,7 @@ class="{{ request()->routeIs('riwayat.ruangan')
     </aside>
 
     <!-- MAIN -->
-    <div class="ml-[255px] flex-1">
+    <div class="ml-[220px] flex-1">
 
         <!-- NAVBAR -->
         <nav class="sticky top-0 z-40 bg-[#f4f7fb]/90 backdrop-blur-md px-10 py-6">
