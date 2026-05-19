@@ -88,20 +88,12 @@ class="{{ request()->routeIs('admin.ruangan')
 
 </a>
 
+<a href="{{ route('admin.matkul') }}"
+class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 hover:text-blue-600 transition">
 
+    <i class="fa-solid fa-book"></i>
 
-
-
-   <!-- DATA JADWAL -->
-<a href="{{ route('admin.jadwal') }}"
-class="{{ request()->routeIs('admin.jadwal')
-    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
-    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
-}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
-
-    <i class="fa-solid fa-calendar-days"></i>
-
-    <span>Data Jadwal</span>
+    <span>Data Mata Kuliah</span>
 
 </a>
 
