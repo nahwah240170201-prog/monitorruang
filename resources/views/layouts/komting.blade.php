@@ -16,7 +16,7 @@
 <div class="flex">
 
     <!-- SIDEBAR -->
-   <aside class="fixed left-0 top-0 h-screen w-[220px] bg-white px-4 py-6 border-r border-gray-100">
+    <aside class="fixed left-0 top-0 h-screen w-[255px] bg-white px-5 py-6 border-r border-gray-100">
 
         <!-- LOGO -->
         <div class="flex items-center gap-3 mb-12">
@@ -214,43 +214,12 @@ class="{{ request()->routeIs('riwayat.ruangan')
 
         </div>
 
-        <!-- CARD USER -->
-        <div class="mt-12 bg-gradient-to-br from-[#f5f7ff] to-[#eef2ff] rounded-3xl p-5">
-
-            <div class="flex items-center gap-3 mb-4">
-
-                <div class="w-10 h-10
-                            rounded-2xl
-                            bg-blue-100
-                            flex items-center justify-center
-                            text-blue-600 text-[20px]">
-
-                    <i class="fa-solid fa-user"></i>
-
-                </div>
-
-                <div>
-                    <h3 class="font-bold text-[15px]">
-                        {{ Auth::user()->nama }}
-                    </h3>
-
-                    <p class="text-[13px] text-gray-500">
-                        Komting
-                    </p>
-                </div>
-
-            </div>
-
-            <p class="text-[13px] text-gray-500 leading-relaxed">
-                Anda sedang login sebagai komting kelas.
-            </p>
-
-        </div>
+        
 
     </aside>
 
     <!-- MAIN -->
-    <div class="ml-[220px] flex-1">
+    <div class="ml-[255px] flex-1">
 
         <!-- NAVBAR -->
         <nav class="sticky top-0 z-40 bg-[#f4f7fb]/90 backdrop-blur-md px-10 py-6">
