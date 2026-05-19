@@ -104,7 +104,9 @@ Route::get('/jadwal', function () {
 
     $hariIndonesia = $tanggal->translatedFormat('l');
 
-    $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)->get();
+    $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)
+    ->orderBy('jam_mulai', 'asc')
+    ->get();
 
     $urutan = [
         'LAB INFORMATIKA 1' => 1,
@@ -116,6 +118,8 @@ Route::get('/jadwal', function () {
         'INF-RUANG KULIAH III' => 7,
         'INF-RUANG KULIAH IV' => 8,
         'INF-RUANG KULIAH V' => 9,
+        '0.8 A' => 10,
+        '0.8 B' =>11,
     ];
 
     $ruangan = \App\Models\Jadwal::all()
@@ -125,8 +129,9 @@ Route::get('/jadwal', function () {
         ->sortBy(fn($r) => $urutan[$r] ?? 99)
         ->values();
 
-    $waktuList = \App\Models\Jadwal::select('waktu')
+    $waktuList = \App\Models\Jadwal::select('waktu', 'jam_mulai')
         ->distinct()
+        ->orderBy('jam_mulai', 'asc')
         ->pluck('waktu');
 
     $hariList = [];
@@ -209,7 +214,9 @@ Route::get('/komting/jadwal', function () {
 
     $hariIndonesia = $tanggal->translatedFormat('l');
 
-    $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)->get();
+    $jadwal = \App\Models\Jadwal::where('hari', $hariIndonesia)
+    ->orderBy('jam_mulai', 'asc')
+    ->get();
 
     $urutan = [
         'LAB INFORMATIKA 1' => 1,
@@ -221,6 +228,8 @@ Route::get('/komting/jadwal', function () {
         'INF-RUANG KULIAH III' => 7,
         'INF-RUANG KULIAH IV' => 8,
         'INF-RUANG KULIAH V' => 9,
+        '0.8 A' => 10,
+        '0.8 B' =>11,
     ];
 
     $ruangan = \App\Models\Jadwal::all()
@@ -229,6 +238,12 @@ Route::get('/komting/jadwal', function () {
         ->unique()
         ->sortBy(fn($r) => $urutan[$r] ?? 99)
         ->values();
+    
+    $waktuList = \App\Models\Jadwal::select('waktu', 'jam_mulai')
+        ->distinct()
+        ->orderBy('jam_mulai', 'asc')
+        ->pluck('waktu');
+
 
     $hariList = [];
 
@@ -263,24 +278,31 @@ Route::get('/ruang-kosong', function () {
 
     $hariIni = now()->locale('id')->translatedFormat('l');
 
-    // semua ruangan unik
+    $jamSekarang = now()->format('H:i:s');
+
+    // semua ruangan
     $semuaRuangan = Jadwal::select('ruangan')
         ->distinct()
         ->pluck('ruangan');
 
-    // ruangan yang ADA jadwal hari ini
+    // ruangan yang sedang dipakai
     $ruanganTerpakai = Jadwal::where('hari', $hariIni)
+        ->where('jam_mulai', '<=', $jamSekarang)
+        ->where('jam_selesai', '>=', $jamSekarang)
         ->pluck('ruangan')
         ->unique();
 
-    // selisih = kosong
+    // ruangan kosong
     $ruanganKosong = $semuaRuangan
         ->diff($ruanganTerpakai)
+        ->sort()
         ->values()
         ->map(function ($r) {
+
             return (object)[
                 'ruangan' => $r
             ];
+
         });
 
     return view('ruang-kosong', compact('ruanganKosong'));
