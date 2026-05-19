@@ -16,7 +16,7 @@
                 </h1>
 
                 <p class="text-gray-500 mt-2">
-                    Status realtime ruang kelas dan laboratorium informatika.
+                    Informasi ruang kelas dan laboratorium informatika.
                 </p>
 
             </div>
@@ -31,10 +31,11 @@
                         <tr class="border-b text-left text-gray-500">
 
                             <th class="py-4">No</th>
-                            <th>Ruangan</th>
-                            <th>Mata Kuliah</th>
+                            <th>Semester</th>
                             <th>Kelas</th>
-                            <th>Status</th>
+                            <th>Mata Kuliah</th>
+                            <th>Dosen</th>
+                            <th>Sks</th>
 
                         </tr>
 
@@ -51,33 +52,23 @@
                             </td>
 
                             <td>
-                                {{ $item->ruangan }}
+                                {{ $item->semester }}
                             </td>
 
                             <td>
-                                {{ $item->mata_kuliah ?? '-' }}
+                                {{ $item->kelas }}
                             </td>
 
                             <td>
-                                {{ $item->kelas ?? '-' }}
+                                {{ $item->nama_mk }}
                             </td>
 
                             <td>
+                                {{ $item->nama_dosen }}
+                            </td>
 
-                                @if($item->status == 'Digunakan')
-
-                                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
-                                        Digunakan
-                                    </span>
-
-                                @else
-
-                                    <span class="bg-green-100 text-green-600 px-3 py-1 rounded-xl text-sm">
-                                        Kosong
-                                    </span>
-
-                                @endif
-
+                            <td>
+                                {{ $item->sks }}
                             </td>
 
                         </tr>
