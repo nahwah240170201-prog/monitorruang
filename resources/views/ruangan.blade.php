@@ -52,7 +52,7 @@
                             </td>
 
                             <td>
-                                {{ $item->semester }}
+                                {{ $item->semester->nama_semester ?? '-' }}
                             </td>
 
                             <td>

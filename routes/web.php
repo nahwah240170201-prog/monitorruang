@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JadwalController;
+use App\Models\MataKuliah;
+use App\Http\Controllers\RuanganController;
 use App\Models\Jadwal;
 use App\Models\Booking;
 
@@ -184,20 +186,10 @@ Route::get('/dashboard-komting', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/daftar-ruangan', function () {
 
-    $ruangan = Jadwal::select(
-        'ruangan',
-        'mata_kuliah',
-        'kelas',
-        'status'
-    )
-    ->distinct()
-    ->get();
 
-    return view('ruangan', compact('ruangan'));
-
-})->name('daftar.ruangan');
+Route::get('/ruangan', [RuanganController::class, 'index'])
+    ->name('daftar.ruangan');
 
 /*
 |--------------------------------------------------------------------------
