@@ -67,7 +67,7 @@ class="{{ request()->routeIs('admin.komting')
 
     <i class="fa-solid fa-users"></i>
 
-    <span>Data Komting</span>
+    <span>Data user</span>
 
 </a>
 
