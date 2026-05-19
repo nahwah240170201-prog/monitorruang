@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Jadwal;
+
+class RuangKosongController extends Controller
+{
+    public function index()
+    {
+        $now    = Carbon::now();
+        $jamNow = $now->format('H:i:s');
+
+        $namaHari = [
+            'Monday'    => 'senin',
+            'Tuesday'   => 'selasa',
+            'Wednesday' => 'rabu',
+            'Thursday'  => 'kamis',
+            'Friday'    => 'jumat',
+        ];
+
+        $hariIni = $namaHari[$now->englishDayOfWeek] ?? null;
+
+        $urutan = [
+            'LAB INFORMATIKA 1'    => 1,
+            'LAB INFORMATIKA 2'    => 2,
+            'LAB INFORMATIKA 3'    => 3,
+            'LAB INFORMATIKA 4'    => 4,
+            'INF-RUANG KULIAH I'   => 5,
+            'INF-RUANG KULIAH II'  => 6,
+            'INF-RUANG KULIAH III' => 7,
+            'INF-RUANG KULIAH IV'  => 8,
+            'INF-RUANG KULIAH V'   => 9,
+            '08.A'                 => 10,
+            '08.B'                 => 11,
+            'RUANG KULIAH MTI 1'   => 12,
+        ];
+
+        $jadwalHariIni = collect();
+
+        if ($hariIni) {
+            $jadwalHariIni = Jadwal::whereRaw('LOWER(hari) = ?', [$hariIni])
+                ->orderBy('jam_mulai')
+                ->get()
+                ->map(function($j) {
+                    $j->ruangan = strtoupper(trim(preg_replace('/\s+/', ' ',
+                        str_replace('INF- RUANG', 'INF-RUANG', $j->ruangan)
+                    )));
+                    return $j;
+                });
+        }
+
+        // Ruangan yang sedang dipakai jam sekarang
+        $ruanganTerpakai = $jadwalHariIni
+            ->filter(fn($j) => $j->jam_mulai <= $jamNow && $j->jam_selesai >= $jamNow)
+            ->pluck('ruangan')
+            ->unique();
+
+        // Semua ruangan dikurangi yang terpakai
+        $ruanganKosong = collect(array_keys($urutan))
+            ->filter(fn($r) => !$ruanganTerpakai->contains($r))
+            ->values();
+
+        return view('ruang-kosong', compact(
+            'ruanganKosong',
+            'jadwalHariIni',
+            'now',
+            'hariIni'
+        ));
+    }
+}

@@ -23,82 +23,79 @@
 
         @foreach($ruanganKosong as $item)
 
-        <div class="bg-white border border-gray-200 rounded-3xl
-                    px-6 py-5 shadow-sm hover:shadow-md
-                    transition duration-300">
+<div class="bg-white border border-gray-200 rounded-3xl
+            px-6 py-5 shadow-sm hover:shadow-md
+            transition duration-300">
 
-            <!-- TOP -->
-            <div class="flex items-center justify-between mb-5">
+    <!-- TOP -->
+    <div class="flex items-center justify-between mb-5">
 
-                <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
 
-                    <!-- ICON -->
-                    <div class="w-14 h-14 rounded-2xl
-                                bg-green-50 text-green-600
-                                flex items-center justify-center">
+            <!-- ICON -->
+            <div class="w-14 h-14 rounded-2xl bg-green-50 text-green-600
+                        flex items-center justify-center">
 
-                        <i class="fa-solid fa-building text-[20px]"></i>
-
-                    </div>
-
-                    <!-- INFO -->
-                    <div>
-
-                        <h2 class="text-[20px] font-bold text-gray-800">
-                            {{ $item->ruangan }}
-                        </h2>
-
-                        <p class="text-[13px] text-gray-400 mt-1">
-                            Gedung Informatika
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- STATUS -->
-                <div class="px-4 py-2 rounded-2xl
-                            bg-green-50 border border-green-200">
-
-                    <span class="text-[12px] font-semibold text-green-700">
-                        Kosong
-                    </span>
-
-                </div>
+                @if(str_contains($item->ruangan, 'LAB'))
+                    <i class="fa-solid fa-flask text-[20px]"></i>
+                @else
+                    <i class="fa-solid fa-building text-[20px]"></i>
+                @endif
 
             </div>
 
-
-            <!-- BOTTOM -->
-            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-
-                <div>
-
-                    <p class="text-[12px] text-gray-400">
-                        Tersedia Sampai
-                    </p>
-
-                    <h3 class="text-[15px] font-semibold text-gray-700 mt-1">
-                        16.30 WIB
-                    </h3>
-
-                </div>
-
-
-                <div class="w-10 h-10 rounded-xl
-                            bg-blue-50 text-blue-600
-                            flex items-center justify-center">
-
-                    <i class="fa-regular fa-clock"></i>
-
-                </div>
-
+            <!-- INFO -->
+            <div>
+                <h2 class="text-[18px] font-bold text-gray-800 leading-tight">
+                    {{ $item->ruangan }}
+                </h2>
+                <p class="text-[13px] text-gray-400 mt-1">
+                    Gedung Informatika
+                </p>
             </div>
 
         </div>
 
-        @endforeach
+        <!-- STATUS -->
+        <div class="px-4 py-2 rounded-2xl bg-green-50 border border-green-200">
+            <span class="text-[12px] font-semibold text-green-700">Kosong</span>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+
+        <div>
+            <p class="text-[12px] text-gray-400">Tersedia Sampai</p>
+
+            @php
+                $jadwalBerikutnya = $jadwalHariIni
+                    ->filter(fn($j) => $j->ruangan === $item->ruangan
+                        && $j->jam_mulai > $now->format('H:i:s'))
+                    ->sortBy('jam_mulai')
+                    ->first();
+            @endphp
+
+            <h3 class="text-[15px] font-semibold text-gray-700 mt-1">
+                @if($jadwalBerikutnya)
+                    {{ \Carbon\Carbon::parse($jadwalBerikutnya->jam_mulai)->format('H.i') }} WIB
+                @else
+                    Selesai Hari Ini
+                @endif
+            </h3>
+        </div>
+
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600
+                    flex items-center justify-center">
+            <i class="fa-regular fa-clock"></i>
+        </div>
+
+    </div>
+
+</div>
+
+@endforeach
 
     </div>
 

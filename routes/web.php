@@ -278,36 +278,55 @@ Route::get('/komting/jadwal', function () {
 
 Route::get('/ruang-kosong', function () {
 
-    $hariIni = now()->locale('id')->translatedFormat('l');
+    $now         = now();
+    $hariIni     = $now->locale('id')->translatedFormat('l');
+    $jamSekarang = $now->format('H:i:s');
 
-    $jamSekarang = now()->format('H:i:s');
+    $normalizeRuangan = fn($r) => strtoupper(trim(preg_replace('/\s+/', ' ',
+        str_replace('INF- RUANG', 'INF-RUANG', $r)
+    )));
 
-    // semua ruangan
-    $semuaRuangan = Jadwal::select('ruangan')
-        ->distinct()
-        ->pluck('ruangan');
+    $urutan = [
+        'LAB INFORMATIKA 1'    => 1,
+        'LAB INFORMATIKA 2'    => 2,
+        'LAB INFORMATIKA 3'    => 3,
+        'LAB INFORMATIKA 4'    => 4,
+        'INF-RUANG KULIAH I'   => 5,
+        'INF-RUANG KULIAH II'  => 6,
+        'INF-RUANG KULIAH III' => 7,
+        'INF-RUANG KULIAH IV'  => 8,
+        'INF-RUANG KULIAH V'   => 9,
+        '08.A'                 => 10,
+        '08.B'                 => 11,
+        'RUANG KULIAH MTI 1'   => 12,
+    ];
 
-    // ruangan yang sedang dipakai
-    $ruanganTerpakai = Jadwal::where('hari', $hariIni)
-        ->where('jam_mulai', '<=', $jamSekarang)
-        ->where('jam_selesai', '>=', $jamSekarang)
+    // Semua jadwal hari ini (untuk hitung "Tersedia Sampai")
+    $jadwalHariIni = Jadwal::where('hari', $hariIni)
+        ->orderBy('jam_mulai')
+        ->get()
+        ->map(function ($j) use ($normalizeRuangan) {
+            $j->ruangan = $normalizeRuangan($j->ruangan);
+            return $j;
+        });
+
+    // Ruangan yang sedang dipakai jam sekarang
+    $ruanganTerpakai = $jadwalHariIni
+        ->filter(fn($j) => $j->jam_mulai <= $jamSekarang && $j->jam_selesai >= $jamSekarang)
         ->pluck('ruangan')
         ->unique();
 
-    // ruangan kosong
-    $ruanganKosong = $semuaRuangan
-        ->diff($ruanganTerpakai)
-        ->sort()
-        ->values()
-        ->map(function ($r) {
+    // Semua 12 ruangan dikurangi yang terpakai = kosong
+    $ruanganKosong = collect(array_keys($urutan))
+        ->filter(fn($r) => !$ruanganTerpakai->contains($r))
+        ->values();
+    
 
-            return (object)[
-                'ruangan' => $r
-            ];
-
-        });
-
-    return view('ruang-kosong', compact('ruanganKosong'));
+    return view('ruang-kosong', compact(
+        'ruanganKosong',
+        'jadwalHariIni',
+        'now'
+    ));
 
 })->name('ruang.kosong');
 

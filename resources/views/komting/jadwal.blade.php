@@ -1,4 +1,4 @@
-@extends('layouts.komting')
+@extends('layouts.app')
 
 @section('content')
 
@@ -22,48 +22,36 @@
         <!-- DATE -->
         <div class="flex items-center gap-3">
 
-            <a href="{{ route('komting.jadwal', ['tanggal' => $prevDate]) }}"
+            <a href="{{ route('jadwal.index', ['tanggal' => $prevDate]) }}"
                class="w-11 h-11 rounded-2xl bg-white border border-gray-200
                       flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
-
                 <i class="fa-solid fa-chevron-left text-[13px] text-gray-600"></i>
-
             </a>
 
             <div class="bg-gradient-to-r from-blue-600 to-indigo-600
                         text-white px-6 py-3 rounded-2xl shadow-lg">
-
-                <p class="text-[13px] opacity-80">
-                    Jadwal Hari Ini
-                </p>
-
-                <h2 class="font-semibold text-[16px]">
-                    {{ $tanggalFormatted }}
-                </h2>
-
+                <p class="text-[13px] opacity-80">Jadwal Hari Ini</p>
+                <h2 class="font-semibold text-[16px]">{{ $tanggalFormatted }}</h2>
             </div>
 
-            <a href="{{ route('komting.jadwal', ['tanggal' => $nextDate]) }}"
+            <a href="{{ route('jadwal.index', ['tanggal' => $nextDate]) }}"
                class="w-11 h-11 rounded-2xl bg-white border border-gray-200
                       flex items-center justify-center shadow-sm
                       hover:bg-blue-50 hover:border-blue-300 transition">
-
                 <i class="fa-solid fa-chevron-right text-[13px] text-gray-600"></i>
-
             </a>
 
         </div>
 
     </div>
 
-
     <!-- HARI -->
     <div class="flex flex-wrap gap-3 mb-8">
 
         @foreach($hariList as $hari)
 
-            <a href="{{ route('komting.jadwal', ['tanggal' => $hari['date']]) }}"
+            <a href="{{ route('jadwal.index', ['tanggal' => $hari['date']]) }}"
                @class([
                     'px-5 h-11 rounded-2xl flex items-center justify-center
                      text-[14px] font-semibold transition-all duration-200',
@@ -75,168 +63,148 @@
                      hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'
                         => !$hari['active']
                ])>
-
                 {{ $hari['label'] }}
-
             </a>
 
         @endforeach
 
     </div>
 
+    @php
+    $normalizeRuangan = function($r) {
+        $r = strtoupper(trim($r));
+        $r = preg_replace('/\s+/', ' ', $r);
+        $r = str_replace('INF- RUANG', 'INF-RUANG', $r);
+        return $r;
+    };
+
+    $urutan = [
+        'LAB INFORMATIKA 1'    => 1,
+        'LAB INFORMATIKA 2'    => 2,
+        'LAB INFORMATIKA 3'    => 3,
+        'LAB INFORMATIKA 4'    => 4,
+        'INF-RUANG KULIAH I'   => 5,
+        'INF-RUANG KULIAH II'  => 6,
+        'INF-RUANG KULIAH III' => 7,
+        'INF-RUANG KULIAH IV'  => 8,
+        'INF-RUANG KULIAH V'   => 9,
+        '08.A'                 => 10,
+        '08.B'                 => 11,
+        'RUANG KULIAH MTI 1'   => 12,
+    ];
+
+    // Hanya ruangan yang ada jadwalnya hari ini, urut sesuai $urutan
+    $daftarRuangan = $jadwal->pluck('ruangan')
+        ->map($normalizeRuangan)
+        ->unique()
+        ->filter(fn($r) => isset($urutan[$r]))
+        ->sortBy(fn($r) => $urutan[$r])
+        ->values();
+
+    // Slot waktu unik, urut dari pagi
+    $waktuList = $jadwal
+        ->map(fn($item) => $item->jam_mulai . ' - ' . $item->jam_selesai)
+        ->unique()
+        ->sort()
+        ->values();
+    @endphp
 
     <!-- TABLE -->
     <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
 
-    <!-- HANYA TABEL YANG SCROLL -->
-    <div class="overflow-x-auto">
+        <div class="overflow-x-auto">
 
-        <table class="w-full min-w-[950px]">
+            <table class="w-full min-w-[600px]">
 
                 <!-- HEAD -->
-<thead>
+                <thead>
+                    <tr class="bg-gradient-to-r from-[#f8fbff] to-[#f5f7ff] border-b border-gray-200">
 
-    <tr class="bg-gradient-to-r from-[#f8fbff] to-[#f5f7ff] border-b border-gray-200">
+                        <th class="px-6 py-5 bg-[#f5f7fb] border-r border-gray-100
+                                   text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
+                            Waktu
+                        </th>
 
-        <th class="px-6 py-5 bg-[#f5f7fb] border-r border-gray-100
-text-left text-[12px] font-bold uppercase tracking-wider text-gray-500">
-            Waktu
-        </th>
+                        @foreach($daftarRuangan as $ruangan)
+                            <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
+                                {{ $ruangan }}
+                            </th>
+                        @endforeach
 
-        @php
-        $urutan = array(
-            'LAB INFORMATIKA 1' => 1,
-            'LAB INFORMATIKA 2' => 2,
-            'LAB INFORMATIKA 3' => 3,
-            'LAB INFORMATIKA 4' => 4,
-            'INF-RUANG KULIAH I' => 5,
-            'INF-RUANG KULIAH II' => 6,
-            'INF-RUANG KULIAH III' => 7,
-            'INF-RUANG KULIAH IV' => 8,
-            'INF-RUANG KULIAH V' => 9,
-        );
-        $daftarRuangan = $jadwal->pluck('ruangan')
-            ->map(fn($r) => strtoupper(trim($r)))
-             ->unique()
-             ->sortBy(fn($r) => $urutan[$r] ?? 99)
-             ->values();
-        @endphp
+                    </tr>
+                </thead>
 
-        @foreach($daftarRuangan as $ruangan)
+                <!-- BODY -->
+                <tbody>
 
-            <th class="px-6 py-5 text-center text-[13px] font-bold text-gray-500 uppercase">
-                {{ $ruangan }}
-            </th>
+                @foreach($waktuList as $waktu)
 
-        @endforeach
+                    <tr class="border-b border-gray-100 hover:bg-[#fafcff] transition-all duration-200">
 
-    </tr>
+                        <!-- WAKTU -->
+                        <td class="px-6 py-5 border-r border-gray-100 bg-[#fafbfc] whitespace-nowrap">
+                            <span class="text-[13px] font-semibold text-gray-600 tracking-wide">
+                                {{ $waktu }}
+                            </span>
+                        </td>
 
-</thead>
+                        <!-- CEK PER RUANGAN -->
+                        @foreach($daftarRuangan as $ruangan)
 
+                        @php
+                        $itemsCell = $jadwal->filter(function($j) use ($waktu, $ruangan, $normalizeRuangan) {
+                            return ($j->jam_mulai . ' - ' . $j->jam_selesai) === $waktu
+                                && $normalizeRuangan($j->ruangan) === $ruangan;
+                        });
+                        $terisi = $itemsCell->isNotEmpty();
+                        @endphp
 
-<!-- BODY -->
-<tbody>
+                        <td class="px-5 py-5 text-center align-middle">
 
-    @php
-        $grouped = $jadwal->groupBy('waktu');
-    @endphp
+                            @if($terisi)
 
-    @foreach($grouped as $waktu => $items)
+                                @foreach($itemsCell as $item)
+                                <div class="min-h-[70px] flex flex-col justify-center rounded-xl border px-3 py-2 bg-red-50 border-red-200 text-red-700 mb-1">
+                                    <p class="text-[12px] font-bold leading-tight">{{ $item->mata_kuliah }}</p>
+                                    <p class="text-[11px] opacity-70 mt-0.5">{{ $item->kelas }}</p>
+                                </div>
+                                @endforeach
 
-    <tr class="border-b border-gray-100 hover:bg-[#fafcff] transition-all duration-200">
+                            @else
 
-        <!-- JAM -->
-        <td class="px-6 py-5 border-r border-gray-100 bg-[#fafbfc]">
+                                <div class="min-h-[90px] flex flex-col items-center justify-center
+                                            rounded-2xl border-2 border-dashed
+                                            border-green-200 bg-green-50">
+                                    <p class="text-[10px] font-semibold text-green-700">Ruangan Kosong</p>
+                                </div>
 
-            <span class="text-[13px] font-semibold text-gray-600 tracking-wide">
-                {{ $waktu }}
-            </span>
+                            @endif
 
-        </td>
+                        </td>
 
-        <!-- KOLOM RUANG -->
-        @foreach($daftarRuangan as $ruangan)
+                        @endforeach
 
-            @php
-                $item = $items->firstWhere('ruangan', $ruangan);
-            @endphp
+                    </tr>
 
-            <td class="px-5 py-5 text-center align-middle">
+                @endforeach
 
-                @if($item)
+                </tbody>
 
-                    <div class="h-[72px] flex flex-col justify-center
-                                rounded-xl border px-3 py-2 shadow-sm
-                                bg-red-50 border-red-200 text-red-700 shadow-red-100
-                                hover:scale-[1.03] transition-all duration-200">
-
-                        <p class="text-[12px] font-semibold leading-tight">
-                            {{ $item->mata_kuliah }}
-                        </p>
-
-                        <p class="text-[11px] mt-0.5 opacity-70">
-                            {{ $item->kelas }}
-                        </p>
-
-                    </div>
-
-                @else
-
-                    <!-- KOSONG -->
-                    <div class="h-[72px] flex flex-col items-center justify-center
-                                rounded-2xl border-2 border-dashed border-green-200
-                                bg-green-50">
-
-                        <div class="w-7 h-7 rounded-full bg-green-100
-                                    flex items-center justify-center mb-2">
-
-                            <i class="fa-solid fa-check text-green-600 text-[13px]"></i>
-
-                        </div>
-
-                        <p class="text-[10px] font-semibold text-green-700">
-                            Ruangan Kosong
-                        </p>
-
-                    </div>
-
-                @endif
-
-            </td>
-
-        @endforeach
-
-    </tr>
-
-    @endforeach
-
-</tbody>
-
-    <!-- LEGEND -->
-    <div class="flex flex-wrap items-center gap-8 mt-7 px-6 pb-6">
-
-        <div class="flex items-center gap-3">
-
-    <div class="w-4 h-4 rounded-full bg-red-500"></div>
-
-    <span class="text-[14px] text-gray-600 font-medium">
-        Digunakan
-    </span>
-
-</div>
-
-        <div class="flex items-center gap-3">
-
-            <div class="w-4 h-4 rounded-full bg-green-500"></div>
-
-            <span class="text-[14px] text-gray-600 font-medium">
-                Kosong
-            </span>
+            </table>
 
         </div>
 
-       
+        <!-- LEGEND -->
+        <div class="flex flex-wrap items-center gap-8 mt-7 px-6 pb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-4 h-4 rounded-full bg-red-500"></div>
+                <span class="text-[14px] text-gray-600 font-medium">Digunakan</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-4 h-4 rounded-full bg-green-500"></div>
+                <span class="text-[14px] text-gray-600 font-medium">Kosong</span>
+            </div>
+        </div>
 
     </div>
 

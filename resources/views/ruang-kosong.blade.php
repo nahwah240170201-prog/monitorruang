@@ -12,16 +12,16 @@
         </h1>
 
         <p class="text-gray-500 text-[15px] mt-2 leading-relaxed">
-            Daftar ruangan dan laboratorium yang sedang tersedia.
+            Daftar ruangan dan laboratorium yang sedang tersedia
+            
         </p>
 
     </div>
 
-
     <!-- GRID -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
-        @foreach($ruanganKosong as $item)
+        @foreach($ruanganKosong as $ruangan)
 
         <div class="bg-white border border-gray-200 rounded-3xl
                     px-6 py-5 shadow-sm hover:shadow-md
@@ -33,19 +33,22 @@
                 <div class="flex items-center gap-4">
 
                     <!-- ICON -->
-                    <div class="w-14 h-14 rounded-2xl
-                                bg-green-50 text-green-600
+                    <div class="w-14 h-14 rounded-2xl bg-green-50 text-green-600
                                 flex items-center justify-center">
 
-                        <i class="fa-solid fa-building text-[20px]"></i>
+                        @if(str_contains($ruangan, 'LAB'))
+                            <i class="fa-solid fa-flask text-[20px]"></i>
+                        @else
+                            <i class="fa-solid fa-building text-[20px]"></i>
+                        @endif
 
                     </div>
 
                     <!-- INFO -->
                     <div>
 
-                        <h2 class="text-[20px] font-bold text-gray-800">
-                            {{ $item->ruangan }}
+                        <h2 class="text-[18px] font-bold text-gray-800 leading-tight">
+                            {{ $ruangan }}
                         </h2>
 
                         <p class="text-[13px] text-gray-400 mt-1">
@@ -56,42 +59,40 @@
 
                 </div>
 
-
                 <!-- STATUS -->
-                <div class="px-4 py-2 rounded-2xl
-                            bg-green-50 border border-green-200">
-
-                    <span class="text-[12px] font-semibold text-green-700">
-                        Kosong
-                    </span>
-
+                <div class="px-4 py-2 rounded-2xl bg-green-50 border border-green-200">
+                    <span class="text-[12px] font-semibold text-green-700">Kosong</span>
                 </div>
 
             </div>
-
 
             <!-- BOTTOM -->
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
 
                 <div>
+                    <p class="text-[12px] text-gray-400"></p>
 
-                    <p class="text-[12px] text-gray-400">
-                        Tersedia Sampai
-                    </p>
+                    @php
+                        // Cari jadwal berikutnya di ruangan ini hari ini
+                        $jadwalBerikutnya = $jadwalHariIni
+                            ->filter(fn($j) => strtoupper(trim($j->ruangan)) === $ruangan
+                                && $j->jam_mulai > $now->format('H:i:s'))
+                            ->sortBy('jam_mulai')
+                            ->first();
+                    @endphp
 
                     <h3 class="text-[15px] font-semibold text-gray-700 mt-1">
-                        16.30 WIB
+                        @if($jadwalBerikutnya)
+                            {{ \Carbon\Carbon::parse($jadwalBerikutnya->jam_mulai)->format('H.i') }} WIB
+                        @else
+                            Tersedia Saat Ini
+                        @endif
                     </h3>
-
                 </div>
 
-
-                <div class="w-10 h-10 rounded-xl
-                            bg-blue-50 text-blue-600
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600
                             flex items-center justify-center">
-
                     <i class="fa-regular fa-clock"></i>
-
                 </div>
 
             </div>
@@ -102,19 +103,14 @@
 
     </div>
 
-
     <!-- EMPTY -->
     @if(count($ruanganKosong) == 0)
 
-    <div class="bg-white border border-gray-200 rounded-3xl
-                p-14 text-center mt-5">
+    <div class="bg-white border border-gray-200 rounded-3xl p-14 text-center mt-5">
 
-        <div class="w-20 h-20 mx-auto rounded-full
-                    bg-red-50 text-red-500
+        <div class="w-20 h-20 mx-auto rounded-full bg-red-50 text-red-500
                     flex items-center justify-center mb-5">
-
             <i class="fa-solid fa-xmark text-[28px]"></i>
-
         </div>
 
         <h2 class="text-[24px] font-bold text-gray-700 mb-2">
