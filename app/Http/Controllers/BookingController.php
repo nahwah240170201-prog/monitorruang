@@ -33,16 +33,30 @@ class BookingController extends Controller
 
             'catatan' => $request->catatan,
 
+            // STATUS OTOMATIS
+            'status' => 'Digunakan',
+
         ]);
 
-
-
-
-
         return redirect()
-    ->route('surat.booking')
-    ->with('success', 'Data booking berhasil disimpan!');
+            ->route('surat.booking')
+            ->with('success', 'Data booking berhasil disimpan!');
+    }
 
+
+
+
+
+    // RIWAYAT BOOKING
+    public function riwayat()
+    {
+
+        $riwayat = Booking::latest()->get();
+
+        return view(
+            'komting.riwayat-update',
+            compact('riwayat')
+        );
     }
 
 }

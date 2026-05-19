@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JadwalController;
 use App\Models\Jadwal;
+use App\Models\Booking;
 
 /*
 |--------------------------------------------------------------------------
@@ -360,12 +361,12 @@ Route::get('/komting/ruang-kosong', function () {
 })->name('komting.ruang.kosong');
 /*
 |--------------------------------------------------------------------------
-| RIWAYAT UPDATE
+| RIWAYAT BOOKING
 |--------------------------------------------------------------------------
 */
 Route::get('/riwayat-update', function () {
 
-    $riwayat = Jadwal::latest()->get();
+    $riwayat = \App\Models\Booking::latest()->get();
 
     return view('komting.riwayat-update', compact('riwayat'));
 

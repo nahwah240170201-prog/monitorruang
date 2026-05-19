@@ -19,6 +19,7 @@ class Booking extends Model
         'jam_selesai',
         'ruangan',
         'catatan',
+        'status',
 
     ];
 
