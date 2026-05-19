@@ -4,6 +4,49 @@
 
 <div class="space-y-6">
 
+    <!-- HERO -->
+<div class="bg-white rounded-3xl shadow-sm p-8 mb-6 relative overflow-hidden">
+
+<!-- dekor -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full blur-2xl opacity-50"></div>
+<div class="absolute bottom-0 left-0 w-32 h-32 bg-indigo-100 rounded-full blur-2xl opacity-40"></div>
+
+<div class="flex justify-between items-center">
+
+    <!-- TEXT -->
+    <div>
+
+        <h1 class="text-4xl font-bold mb-3 text-gray-800">
+            Dashboard Admin Monitoring Ruangan
+        </h1>
+
+        <p class="text-gray-500 text-lg leading-relaxed max-w-2xl">
+
+            Selamat datang, Admin 👋<br>
+            Anda dapat memantau seluruh aktivitas penggunaan ruangan secara realtime, <br>
+            termasuk jadwal perkuliahan, status ruangan, dan riwayat perubahan data.
+
+            <br><br>
+
+            Gunakan dashboard ini untuk memastikan seluruh ruangan terkelola dengan baik, <br>
+            menghindari bentrok jadwal, serta menjaga efisiensi penggunaan fasilitas kampus.
+
+        </p>
+
+    </div>
+
+    <!-- IMAGE -->
+    <div class="shrink-0">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
+             class="w-72 opacity-90">
+
+    </div>
+
+</div>
+
+</div>
+
     <!-- HEADER -->
     <div>
         <h1 class="text-4xl font-bold text-gray-800">
