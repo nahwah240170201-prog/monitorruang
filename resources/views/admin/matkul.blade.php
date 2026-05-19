@@ -5,17 +5,45 @@
 <div class="p-8">
 
     <!-- HEADER -->
-    <div class="flex justify-between items-center mb-8">
+   <!-- HEADER -->
+<div class="flex justify-between items-center mb-8">
 
-        <div>
+    <div>
 
-            <h1 class="text-4xl font-bold text-gray-800">
-                Data Mata Kuliah
-            </h1>
+        <h1 class="text-4xl font-bold text-gray-800">
+            Data Mata Kuliah
+        </h1>
 
-            <p class="text-gray-500 mt-2">
-                Kelola data mata kuliah dan dosen pengampu.
-            </p>
+        <p class="text-gray-500 mt-2">
+            Kelola data mata kuliah dan dosen pengampu.
+        </p>
+
+    </div>
+
+
+
+
+
+    <!-- RIGHT ACTION -->
+    <div class="flex items-center gap-4">
+
+        <!-- SEARCH -->
+        <div class="relative">
+
+            <input
+                type="text"
+                placeholder="Cari mata kuliah..."
+                class="w-[280px] h-[52px]
+                       rounded-2xl
+                       border border-gray-200
+                       bg-white
+                       pl-12 pr-5
+                       focus:outline-none
+                       focus:border-blue-500">
+
+            <i class="fa-solid fa-magnifying-glass
+                      absolute left-5 top-1/2 -translate-y-1/2
+                      text-gray-400"></i>
 
         </div>
 
@@ -24,16 +52,17 @@
 
 
         <!-- BUTTON -->
-       <!-- BUTTON -->
-<button
-    onclick="openModal()"
-    class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 h-[52px] rounded-2xl font-semibold shadow-lg shadow-blue-200">
+        <button
+            onclick="openModal()"
+            class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 h-[52px] rounded-2xl font-semibold shadow-lg shadow-blue-200">
 
-    + Tambah Data
+            + Tambah Data
 
-</button>
+        </button>
 
     </div>
+
+</div>
 
 
 
