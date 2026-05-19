@@ -121,6 +121,7 @@ Route::get('/jadwal', function () {
         'INF-RUANG KULIAH V' => 9,
         '0.8 A' => 10,
         '0.8 B' =>11,
+        'RUANG KULIAH MTI 1' => 12,
     ];
 
     $ruangan = \App\Models\Jadwal::all()
@@ -230,6 +231,7 @@ Route::get('/komting/jadwal', function () {
         'INF-RUANG KULIAH V' => 9,
         '0.8 A' => 10,
         '0.8 B' =>11,
+        'RUANG KULIAH MTI 1' => 12,
     ];
 
     $ruangan = \App\Models\Jadwal::all()
