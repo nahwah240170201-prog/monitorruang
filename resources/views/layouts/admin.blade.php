@@ -188,7 +188,7 @@ class="{{ request()->routeIs('admin.riwayat')
         <!-- NAVBAR -->
         <nav class="sticky top-0 z-40 bg-[#f4f7fb]/90 backdrop-blur-md px-10 py-6">
 
-            <div class="bg-blue rounded-3xl px-8 h-[82px] flex items-center justify-between">
+            <div class="bg-white rounded-3xl px-8 h-[82px] flex items-center justify-between">
 
                 <!-- DATE -->
                 <div class="hidden md:flex items-center gap-4

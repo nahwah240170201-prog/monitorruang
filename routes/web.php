@@ -472,8 +472,16 @@ Route::get('/dashboard-admin', function () {
 |--------------------------------------------------------------------------
 */
 
+use App\Models\User;
+
 Route::get('/admin-komting', function () {
-    return view('admin.data-komting');
+
+   $users = User::where('role', 'komting')
+            ->latest()
+            ->get();
+
+    return view('admin.data-komting', compact('users'));
+
 })->name('admin.komting');
 
 Route::get('/admin-ruangan', function () {
