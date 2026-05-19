@@ -64,8 +64,16 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
+             if ($user->role == 'admin') {
+
+                return redirect('/dashboard-admin');
+
+            }
+
             if ($user->role == 'komting') {
+
                 return redirect('/dashboard-komting');
+
             }
 
             return redirect('/');

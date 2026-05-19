@@ -412,3 +412,14 @@ Route::get('/komting/ruangan', function () {
     return view('komting.ruangan', compact('ruangan'));
 
 })->name('komting.daftar.ruangan');
+
+/*
+|--------------------------------------------------------------------------
+| dashboard admin
+|--------------------------------------------------------------------------
+*/
+Route::get('/dashboard-admin', function () {
+
+    return view('admin.dashboard-admin');
+
+});
