@@ -417,26 +417,58 @@ Route::get('/komting/ruangan', function () {
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN MENU
+| DASHBOARD ADMIN
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin/komting', function () {
-    return view('admin.komting');
+Route::get('/dashboard-admin', function () {
+
+    $jadwal = \App\Models\Jadwal::latest()->take(10)->get();
+    $riwayat = \App\Models\Booking::latest()->take(5)->get();
+
+    $totalRuangan = \App\Models\Jadwal::distinct('ruangan')->count('ruangan');
+    $digunakan = \App\Models\Jadwal::where('status', 'Digunakan')->count();
+    $kosong = \App\Models\Jadwal::where('status', 'Kosong')->count();
+
+    $totalBooking = \App\Models\Booking::count();
+
+    $latestUpdate = \App\Models\Booking::latest()
+        ->first()?->updated_at?->diffForHumans();
+
+    return view('admin.dashboard-admin', compact(
+        'jadwal',
+        'riwayat',
+        'totalRuangan',
+        'digunakan',
+        'kosong',
+        'totalBooking',
+        'latestUpdate'
+    ));
+
+})->middleware('auth')->name('dashboard.admin');
+
+/*
+|--------------------------------------------------------------------------
+| MENU ADMIN
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin-komting', function () {
+    return view('admin.data-komting');
 })->name('admin.komting');
 
-Route::get('/admin/ruangan', function () {
-    return view('admin.ruangan');
+Route::get('/admin-ruangan', function () {
+    return view('admin.data-ruangan');
 })->name('admin.ruangan');
 
-Route::get('/admin/jadwal', function () {
-    return view('admin.jadwal');
+Route::get('/admin-jadwal', function () {
+    return view('admin.data-jadwal');
 })->name('admin.jadwal');
 
-Route::get('/admin/semester', function () {
+Route::get('/admin-semester', function () {
     return view('admin.semester');
 })->name('admin.semester');
 
-Route::get('/admin/riwayat', function () {
+Route::get('/admin-riwayat', function () {
     return view('admin.riwayat');
 })->name('admin.riwayat');

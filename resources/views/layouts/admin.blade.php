@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Komting</title>
+    <title>Dashboard Admin</title>
 
     @vite('resources/css/app.css')
 
@@ -16,7 +16,7 @@
 <div class="flex">
 
     <!-- SIDEBAR -->
-    <aside class="fixed left-0 top-0 h-screen w-[255px] bg-white px-5 py-6 border-r border-gray-100">
+    <aside class="fixed left-0 top-0 h-screen w-[255px] bg-[#0f172a] px-5 py-6 border-r border-slate-800">
 
         <!-- LOGO -->
         <div class="flex items-center gap-3 mb-12">
@@ -26,12 +26,12 @@
             </div>
 
             <div>
-                <h1 class="text-[24px] font-bold leading-none">
+                <h1 class="text-[24px] font-bold leading-none text-white">
                     MonitorRuang
                 </h1>
 
-                <p class="text-[13px] text-gray-500 mt-1">
-                    Dashboard Komting
+                <p class="text-[13px] text-slate-400 mt-1">
+                    Dashboard Admin
                 </p>
             </div>
 
@@ -42,10 +42,10 @@
 <nav class="space-y-2">
 
     <!-- DASHBOARD -->
-    <a href="{{ route('dashboard.komting') }}"
-    class="{{ request()->routeIs('dashboard.komting')
-        ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-        : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+    <a href="{{ route('dashboard.admin') }}"
+    class="{{ request()->routeIs('dashboard.admin')
+        ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
     }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
         <i class="fa-solid fa-house"></i>
@@ -58,16 +58,16 @@
 
 
 
-   <!-- JADWAL -->
-<a href="{{ route('komting.jadwal') }}"
-class="{{ request()->routeIs('komting.jadwal')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+   <!-- DATA KOMTING -->
+<a href="{{ route('admin.komting') }}"
+class="{{ request()->routeIs('admin.komting')
+    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-    <i class="fa-regular fa-calendar"></i>
+    <i class="fa-solid fa-users"></i>
 
-    <span>Jadwal Hari Ini</span>
+    <span>Data Komting</span>
 
 </a>
 
@@ -75,32 +75,33 @@ class="{{ request()->routeIs('komting.jadwal')
 
 
 
-    <!-- DAFTAR RUANGAN -->
-<a href="{{ route('komting.daftar.ruangan') }}"
-class="{{ request()->routeIs('komting.daftar.ruangan')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
-}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
-
-    <i class="fa-regular fa-file-lines"></i>
-
-    <span>Daftar Ruangan</span>
-
-</a>
-
-
-
-
-   <!-- RUANG KOSONG -->
-<a href="{{ route('komting.ruang.kosong') }}"
-class="{{ request()->routeIs('komting.ruang.kosong')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+    <!-- DATA RUANGAN -->
+<a href="{{ route('admin.ruangan') }}"
+class="{{ request()->routeIs('admin.ruangan')
+    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
     <i class="fa-solid fa-building"></i>
 
-    <span>Ruang Kosong</span>
+    <span>Data Ruangan</span>
+
+</a>
+
+
+
+
+
+   <!-- DATA JADWAL -->
+<a href="{{ route('admin.jadwal') }}"
+class="{{ request()->routeIs('admin.jadwal')
+    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
+}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
+
+    <i class="fa-solid fa-calendar-days"></i>
+
+    <span>Data Jadwal</span>
 
 </a>
 
@@ -111,8 +112,8 @@ class="{{ request()->routeIs('komting.ruang.kosong')
     <!-- DIVIDER -->
     <div class="pt-4 pb-2">
 
-        <p class="text-[11px] uppercase tracking-widest text-gray-400 font-bold px-4">
-            Fitur Komting
+        <p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold px-4">
+            Sistem Akademik
         </p>
 
     </div>
@@ -122,16 +123,16 @@ class="{{ request()->routeIs('komting.ruang.kosong')
 
 
     
-    <!-- KELAS ANDA -->
-<a href="{{ route('kelas.anda') }}"
-class="{{ request()->routeIs('kelas.anda')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+    <!-- SEMESTER AKADEMIK -->
+<a href="{{ route('admin.semester') }}"
+class="{{ request()->routeIs('admin.semester')
+    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
-    <i class="fa-solid fa-users"></i>
+    <i class="fa-solid fa-graduation-cap"></i>
 
-    <span>Kelas Anda</span>
+    <span>Semester Akademik</span>
 
 </a>
 
@@ -139,51 +140,16 @@ class="{{ request()->routeIs('kelas.anda')
 
 
 
-   <!-- BOOKING -->
-<a href="{{ route('booking.ruangan') }}"
-class="{{ request()->routeIs('booking.ruangan')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
-}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
-
-    <i class="fa-solid fa-bookmark"></i>
-
-    <span>Booking Ruangan</span>
-
-</a>
-
-
-
-
-
-  
-   <!-- UPDATE STATUS -->
-<a href="{{ route('update.status') }}"
-class="{{ request()->routeIs('update.status')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
-}} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
-
-    <i class="fa-solid fa-pen-to-square"></i>
-
-    <span>Update Status</span>
-
-</a>
-
-
-
-
-
-    <!-- RIWAYAT -->
-<a href="{{ route('riwayat.ruangan') }}"
-class="{{ request()->routeIs('riwayat.ruangan')
-    ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-    : 'text-gray-500 hover:bg-gray-50 hover:text-blue-600'
+   <!-- RIWAYAT -->
+<a href="{{ route('admin.riwayat') }}"
+class="{{ request()->routeIs('admin.riwayat')
+    ? 'bg-cyan-500/15 text-cyan-400 font-semibold'
+    : 'text-slate-300 hover:bg-slate-800 hover:text-cyan-400'
 }} flex items-center gap-3 px-4 py-3 rounded-2xl transition duration-200">
 
     <i class="fa-solid fa-clock-rotate-left"></i>
 
-    <span>Riwayat Penggunaan    </span>
+    <span>Riwayat Penggunaan</span>
 
 </a>
 
@@ -192,7 +158,7 @@ class="{{ request()->routeIs('riwayat.ruangan')
         <!-- STATUS -->
         <div class="mt-12">
 
-            <h2 class="text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-5">
+            <h2 class="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-5">
                 Status Ruangan
             </h2>
 
@@ -200,15 +166,13 @@ class="{{ request()->routeIs('riwayat.ruangan')
 
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="text-[15px] text-gray-600">Kosong</span>
+                    <span class="text-[15px] text-slate-300">Kosong</span>
                 </div>
 
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <span class="text-[15px] text-gray-600">Digunakan</span>
+                    <span class="text-[15px] text-slate-300">Digunakan</span>
                 </div>
-
-    
 
             </div>
 
@@ -224,17 +188,17 @@ class="{{ request()->routeIs('riwayat.ruangan')
         <!-- NAVBAR -->
         <nav class="sticky top-0 z-40 bg-[#f4f7fb]/90 backdrop-blur-md px-10 py-6">
 
-            <div class="bg-white rounded-3xl px-8 h-[82px] flex items-center justify-between">
+            <div class="bg-blue rounded-3xl px-8 h-[82px] flex items-center justify-between">
 
                 <!-- DATE -->
                 <div class="hidden md:flex items-center gap-4
-                    bg-[#f5f7ff]
-                    border border-blue-100
+                    bg-cyan-50
+                    border border-cyan-100
                     px-5 py-3 rounded-2xl">
 
-                    <div class="w-11 h-11 rounded-xl bg-blue-100
+                    <div class="w-11 h-11 rounded-xl bg-cyan-100
                                 flex items-center justify-center
-                                text-blue-600">
+                                text-cyan-600">
 
                         <i class="fa-regular fa-calendar-days"></i>
 
@@ -319,6 +283,7 @@ function updateDateTime() {
 updateDateTime();
 
 setInterval(updateDateTime, 1000);
+
 function confirmLogout() {
 
     Swal.fire({
