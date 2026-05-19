@@ -496,6 +496,14 @@ Route::get('/admin-semester', function () {
     return view('admin.semester');
 })->name('admin.semester');
 
+
+
 Route::get('/admin-riwayat', function () {
-    return view('admin.riwayat');
+
+    $booking = Booking::latest()->get();
+
+    return view('admin.riwayat', [
+        'booking' => $booking
+    ]);
+
 })->name('admin.riwayat');
