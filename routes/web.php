@@ -507,3 +507,51 @@ Route::get('/admin-riwayat', function () {
     ]);
 
 })->name('admin.riwayat');
+
+
+use Illuminate\Http\Request;
+
+Route::get('/admin-jadwal', function () {
+
+    $jadwal = Jadwal::latest()->get();
+
+    return view('admin.jadwal', [
+        'jadwal' => $jadwal
+    ]);
+
+})->name('admin.jadwal');
+
+
+
+
+
+Route::post('/admin-jadwal/store', function (Request $request) {
+
+    Jadwal::create([
+
+        'hari' => $request->hari,
+        'waktu' => $request->jam_mulai . ' - ' . $request->jam_selesai,
+        'jam_mulai' => $request->jam_mulai,
+        'jam_selesai' => $request->jam_selesai,
+        'mata_kuliah' => $request->mata_kuliah,
+        'kelas' => $request->kelas,
+        'ruangan' => $request->ruangan,
+        'status' => 'Digunakan',
+
+    ]);
+
+    return back()->with('success', 'Jadwal berhasil ditambahkan');
+
+})->name('admin.jadwal.store');
+
+
+
+
+
+Route::get('/admin-jadwal/delete/{id}', function ($id) {
+
+    Jadwal::find($id)->delete();
+
+    return back()->with('success', 'Jadwal berhasil dihapus');
+
+})->name('admin.jadwal.delete');
